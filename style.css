@@ -4,3 +4,6 @@
 .castomButtonHover:hover{
     color: red !important;
 }
+.carousel-control-next-icon{
+    color: red;
+}
