@@ -7,7 +7,7 @@ const Filter = ({ ...rest }) => {
   return (
     <div {...rest}>
       <div className="h-100 ">
-        <div className="row align-items-center h-100 position-fixed ">
+        <div className="row align-items-center h-100 position-fixed">
           <div className=" nav-filter">
 
             <CheckboxElement name='kosher'/>
@@ -31,7 +31,7 @@ const Filter = ({ ...rest }) => {
 const CheckboxElement = ({name}) => {
     return (
     <React.Fragment>
-        <input type="checkbox" name={name} id={name} checked/>
+        <input type="checkbox" name={name} id={name} />
         <label htmlFor={name} className="ml-2 text-capitalize"
         style={MenuColor}>
            {name}
