@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.castomDropMenuHover:hover{
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+.castomButtonHover:hover{
+  color: red !important;
+}
+.carousel-control-next-icon{
+  color: red;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 class Header extends Component {
     render() { 
         return(
-            <header id='head'>
+            <header id='head' style={{height: '50px'}}>
                 <nav className="fixed-top navbar navbar-expand-lg navbar-light bg-light"
                 style={gradientTopButtom}>
                     <h4 style={whiteText}>Company logo</h4>
