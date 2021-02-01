@@ -1,5 +1,5 @@
 .castomDropMenuHover:hover{
-    background-color: inherit !important;
+    background-color: rgba(0, 0, 0, 0.2) !important;
 }
 .castomButtonHover:hover{
     color: red !important;
