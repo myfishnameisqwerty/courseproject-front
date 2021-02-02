@@ -1,7 +1,10 @@
 import React from "react";
 import PlaceAnItem from "./PlaceAnItem";
-const GalleryDisplay = ({galleryList}) => {
-    return (galleryList.map(({ name, desc, min, max, star, price, pictures }, key) => (
+import "./GalleryDisplay.css"
+const GalleryDisplay = ({ galleryList }) => {
+  return galleryList.map(
+    ({ name, desc, min, max, star, price, pictures }, key) => (
+      
         <PlaceAnItem
           key={key}
           name={name}
@@ -12,7 +15,9 @@ const GalleryDisplay = ({galleryList}) => {
           price={price}
           pictures={pictures}
         />
-      )))
-    
-}
+      
+    )
+  );
+};
+
 export default GalleryDisplay;

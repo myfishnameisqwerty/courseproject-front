@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import "../filter.css";
 import CheckBoxElement from "./CheckBoxElement";
+
 const Filter = ({ ...rest }) => {
   return (
     <div {...rest}>
