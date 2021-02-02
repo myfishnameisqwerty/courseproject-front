@@ -23,7 +23,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+p{
+  /* margin:20px; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+ }
 .App-link {
   color: #61dafb;
 }
