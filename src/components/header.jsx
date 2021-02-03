@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { Route, BrowserRouter as Router} from 'react-router-dom'
+import Gallery from "./Gallery";
+import Login from "./Login";
+import App from "../App";
 class Header extends Component {
   render() {
     return (
       <header id="head" style={{ height: "50px" }}>
+        <Router>
+
         <nav
           className="fixed-top navbar navbar-expand-lg navbar-light bg-light"
           style={gradientTopButtom}
@@ -25,9 +32,12 @@ class Header extends Component {
 
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
-                  <a className="nav-link" href="#head" style={whiteText}>
+                  <NavLink to="/" exact>
+                  Home
+                  </NavLink>
+                  {/* <a className="nav-link" href="#head" style={whiteText}>
                     Home <span className="sr-only">(current)</span>
-                  </a>
+                  </a> */}
                 </li>
 
                 <li className="nav-item dropdown">
@@ -48,13 +58,14 @@ class Header extends Component {
                     aria-labelledby="navbarDropdown"
                     style={gradientButtomTop}
                   >
-                    <a
+                    <NavLink to="/catalog" exact>For home</NavLink>
+                    {/* <a
                       className="dropdown-item castomDropMenuHover"
                       href="#"
                       style={whiteText}
                     >
                       For home
-                    </a>
+                    </a> */}
                     <a
                       className="dropdown-item castomDropMenuHover"
                       href="#"
@@ -83,15 +94,21 @@ class Header extends Component {
             </div>
           </div>
           <div className="loginOptions">
+            <NavLink to="/login" exact>
             <button className="text-danger btn btn-light my-2 my-sm-0 orangeColor">
               Log In
             </button>
+            </NavLink>
             <button className="castomButtonHover ml-2 btn btn-outline-light my-2 my-sm-0">
               Sign Up
             </button>
           </div>
           <i className="ml-2 fas fa-shopping-cart fa-2x" style={whiteText}></i>
         </nav>
+        <Route exact path="/" component={Gallery}/>
+        <Route path="/catalog" component={Gallery}/>
+        <Route path="/login" component={Login}/>         
+        </Router>
       </header>
     );
   }
