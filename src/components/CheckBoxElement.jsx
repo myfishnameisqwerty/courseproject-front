@@ -1,9 +1,12 @@
 import React from "react";
-const CheckBoxElement = ({name}) => {
+let t1 =[]
+const CheckBoxElement = ({name, addTag}) => {
+    
     return (
     <React.Fragment>
         <input type="checkbox" name={name} id={name}  onChange={(event)=>{
-            console.log(event.target.checked);
+            addTag(event.target.name, event.target.checked)
+            
         }}/>
         <label htmlFor={name} className="ml-2 text-capitalize"
         style={MenuColor}>
