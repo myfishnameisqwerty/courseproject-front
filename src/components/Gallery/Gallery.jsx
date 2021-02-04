@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Filter from "../Filter/Filter";
-// import "../mainPage.css";
-// import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
-import GalleryDisplay from "../GalleryDisplay1/GalleryDisplay";
+import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
 import Sorter from "../Sorter/Sorter";
 class Gallery extends Component {
   constructor(props) {
@@ -11,6 +9,7 @@ class Gallery extends Component {
     this.state = {
       itemsArray: [
         {
+          id:1,
           name: "Chebureki",
           desc:
             "Cheburek is made from unleavened dough filled with ground meat, onions and spices, fried in oil. It is a common street food in Russia.",
@@ -19,9 +18,12 @@ class Gallery extends Component {
           min: 10,
           max: 100,
           pictures: ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
+          additives:[{'onion':'3'}, {'sauce':'5'}],
+          variations:[{'beef': '12'}, {'mutton': '15'}, {'chicken': 10}],
           tags: ["meat", "kosher"],
         },
         {
+          id:2,
           name: "Roast beef",
           desc:
             "Roast beef is a traditional English dish of beef which is roasted. Essentially prepared as a main meal, the leftovers are often used in sandwiches and sometimes are used to make hash.",
@@ -33,6 +35,7 @@ class Gallery extends Component {
           tags: ["meat", "kosher"],
         },
         {
+          id:3,
           name: "Humus",
           desc:
             "Hummus is a Middle Eastern dip, spread, or savory dish made from cooked, mashed chickpeas blended with tahini, lemon juice, and garlic.",
@@ -44,6 +47,7 @@ class Gallery extends Component {
           tags: ["salad", "kosher", "parve"],
         },
         {
+          id:4,
           name: "Napoleon",
           desc:
             "Description. Napoleon Cake is a classic Russian cakes, made of very thin and flaky puff pastry cake layers and a smooth, rich and luscious pastry cream in between the layers.",
@@ -55,6 +59,7 @@ class Gallery extends Component {
           tags: ["sweets", "dairy", "kosher"],
         },
         {
+          id:5,
           name: "Salmon",
           desc:
             "If you pan-fry fish at home in a tablespoon of olive oil, most of the fat is healthy unsaturated fat, and you don't get any trans fat. ",
@@ -66,6 +71,7 @@ class Gallery extends Component {
           tags: ["fish", "kosher", "parve"],
         },
         {
+          id:6,
           name: "Shrimps",
           desc:
             "As with other seafood, shrimp is high in protein but low in food energy. A shrimp-based meal is also a significant source of cholesterol.",

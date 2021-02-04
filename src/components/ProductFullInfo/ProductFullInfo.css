@@ -1,0 +1,30 @@
+.mc img{
+    height:30vw
+}
+
+.mc{
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+/* .additives{
+  position: relative;
+  left: 60%;
+  bottom: 105px;
+  text-transform: capitalize;
+}
+.variations{
+  position: relative;
+  bottom: 40px;
+  text-transform: capitalize;
+} */
+
+#notations{
+  resize: none;
+  margin-top: 10px;
+  /* position: relative;
+  left: 40%;
+  bottom: 100px;
+  border-radius: 5px;*/
+} 
