@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import Gallery from "./Gallery"
 import Login from "./Login";
-import { Route, BrowserRouter as Router} from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch} from 'react-router-dom'
 class MainPage extends Component {
   
   render() { 
     return (
+      
       <main className="bg-light " style={{minHeight: "700px"}}>
-        <Router>
+         
+        <Switch>
         <Route path="/catalog" component={Gallery}/>
         <Route path="/login" component={Login}/>
-        </Router>
+        </Switch> 
         
+        
+         
       </main>
+      
     );
   }
   

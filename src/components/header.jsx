@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Switch } from "react-router-dom";
 import { Route, BrowserRouter as Router} from 'react-router-dom'
 import Gallery from "./Gallery";
 import Login from "./Login";
@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     return (
       <header id="head" style={{ height: "50px" }}>
-        <Router>
+        {/* <Router> */}
 
         <nav
           className="fixed-top navbar navbar-expand-lg navbar-light bg-light"
@@ -28,16 +28,14 @@ class Header extends Component {
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-              {/* <div className='mx-auto'> */}
+              
 
               <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li className="nav-item active">
-                  <NavLink to="/" exact>
+                  <NavLink className="nav-link" to="/" exact style={whiteText}>
                   Home
                   </NavLink>
-                  {/* <a className="nav-link" href="#head" style={whiteText}>
-                    Home <span className="sr-only">(current)</span>
-                  </a> */}
+                  
                 </li>
 
                 <li className="nav-item dropdown">
@@ -58,14 +56,8 @@ class Header extends Component {
                     aria-labelledby="navbarDropdown"
                     style={gradientButtomTop}
                   >
-                    <NavLink to="/catalog" exact>For home</NavLink>
-                    {/* <a
-                      className="dropdown-item castomDropMenuHover"
-                      href="#"
-                      style={whiteText}
-                    >
-                      For home
-                    </a> */}
+                    <NavLink to="/catalog" className="dropdown-item castomDropMenuHover" style={whiteText}>For home</NavLink>
+                    
                     <a
                       className="dropdown-item castomDropMenuHover"
                       href="#"
@@ -90,11 +82,11 @@ class Header extends Component {
                   GO!
                 </button>
               </form>
-              {/* </div> */}
+              
             </div>
           </div>
           <div className="loginOptions">
-            <NavLink to="/login" exact>
+            <NavLink to="/login" >
             <button className="text-danger btn btn-light my-2 my-sm-0 orangeColor">
               Log In
             </button>
@@ -105,10 +97,12 @@ class Header extends Component {
           </div>
           <i className="ml-2 fas fa-shopping-cart fa-2x" style={whiteText}></i>
         </nav>
+        {/* <Switch>
         <Route exact path="/" component={Gallery}/>
         <Route path="/catalog" component={Gallery}/>
-        <Route path="/login" component={Login}/>         
-        </Router>
+        <Route path="/login" component={Login}/>   
+        </Switch>       */}
+        {/* </Router> */}
       </header>
     );
   }
