@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { Switch } from "react-router-dom";
 import Filter from "../Filter/Filter";
 import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
 import Sorter from "../Sorter/Sorter";
+import ProductFullInfo from "../ProductFullInfo/ProductFullInfo"
 class Gallery extends Component {
   constructor(props) {
     super(props);
@@ -18,8 +20,9 @@ class Gallery extends Component {
           min: 10,
           max: 100,
           pictures: ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
-          additives:[{'onion':'3'}, {'sauce':'5'}],
+          additives:[{'onion':'3'}],
           variations:[{'beef': '12'}, {'mutton': '15'}, {'chicken': 10}],
+          alegens:['al1','al2'],
           tags: ["meat", "kosher"],
         },
         {
@@ -32,6 +35,9 @@ class Gallery extends Component {
           min: 2,
           max: 10,
           pictures: ["img/rb1.jpg", "img/rb2.jpg", "img/rb3.jpg"],
+          additives:[{'onion':'3'}, {'sauce':'5'}],
+          variations:[{'rare': '140'}, {'mw': '140'}, {'wd': 140}],
+          alegens:[],
           tags: ["meat", "kosher"],
         },
         {
@@ -44,6 +50,9 @@ class Gallery extends Component {
           min: 5,
           max: 20,
           pictures: ["img/hummus.jpg"],
+          additives:[{'onion':'3'}, {'sauce':'5'}],
+          variations:[{'var1': '30'}, {'var2': '35'}, {'var3': 32}],
+          alegens:['al1','al2'],
           tags: ["salad", "kosher", "parve"],
         },
         {
@@ -56,6 +65,9 @@ class Gallery extends Component {
           min: 1,
           max: 3,
           pictures: ["img/np1.jpg", "img/np2.jpg"],
+          additives:[{'more sugar':'0'}, {'less sugar' : '0'}],
+          variations:[],
+          alegens:['milk'],
           tags: ["sweets", "dairy", "kosher"],
         },
         {
@@ -68,6 +80,9 @@ class Gallery extends Component {
           min: 4,
           max: 20,
           pictures: ["img/sf1.jpg", "img/sf2.jpg"],
+          additives:[{'onion':'3'}, {'sauce':'5'}],
+          variations:[{'crispy': '50'}, {'baked': '60'}, {'oven': 55}],
+          alegens:[],
           tags: ["fish", "kosher", "parve"],
         },
         {
@@ -80,17 +95,25 @@ class Gallery extends Component {
           min: 1,
           max: 50,
           pictures: ["img/Shrimps1.jpg", "img/Shrimps2.jpg"],
+          additives:[{'onion':'3'}, {'sauce':'5'}],
+          variations:[],
+          alegens:[],
           tags: ["fish"],
         },
       ],
       filtredArray: [],
+      selectedElement: [],
     };
     this.filterArray = this.filterArray.bind(this);
     this.sortMapByInOrder = this.sortMapByInOrder.bind(this);
+    this.selectElement = this.selectElement.bind(this)
   }
   render() {
     return (
       <React.Fragment>
+        
+           {/* <Route path={"/catalog/id"+this.state.selectElement.id} component={<ProductFullInfo element={this.state.selectedElement}/>} /> */}
+           {/* <ProductFullInfo element={this.state.itemsArray[0]}/> */}
         <div className="filterResults mt-2 float-right">
           <Sorter
             sortMapByInOrder={this.sortMapByInOrder}
@@ -105,7 +128,7 @@ class Gallery extends Component {
           <div className="col-10">
             <div className="container pb-5 col-10">
               <div className="row">
-                <GalleryDisplay galleryList={this.state.filtredArray} />
+                <GalleryDisplay galleryList={this.state.filtredArray} selectElement={this.state.selectElement} />
               </div>
             </div>
           </div>
@@ -134,6 +157,9 @@ class Gallery extends Component {
       }
     }
     this.setState({ filtredArray: tmpArr });
+  }
+  selectElement(selected){
+    this.setState({selectedElement: selected})
   }
 }
 

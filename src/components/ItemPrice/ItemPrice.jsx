@@ -1,9 +1,8 @@
 import React from "react";
 
-function ItemPrice({ min, maxOfItem, price, numberOfUnitsToBuy, total }) {
+function ItemPrice({ min, maxOfItem, numberOfUnitsToBuy, total }) {
   const starLikeStyle = {
     color: "red"}
-    let numToBuy = min;
   return (
   <React.Fragment>
     <div>

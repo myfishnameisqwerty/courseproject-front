@@ -1,8 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import ItemAbout from "../ItemAbout/ItemAbout";
 import ItemPrice from "../ItemPrice/ItemPrice";
 import "./PlaceAnItem.css"
-function PlaceAnItem(props) {
+function PlaceAnItem(props, selectElement) {
   const myBorder = {
     borderColor:  "rgb(226, 119, 31)",
     borderWidth: "2px",
@@ -18,7 +19,13 @@ function PlaceAnItem(props) {
           key={Math.random()}
           element={props.element}
         />
-        <ItemPrice key={Math.random()} min={props.element.min} maxOfItem={props.element.max} price={props.element.price} />
+        <div className="mt-5" onClick={()=>{
+          
+          selectElement(props.element.id)
+        }}>
+          <NavLink to={'/catalog/id'+props.element.id } style={{color: "red"}} onClick={()=> selectElement(props.element)}><b>Learn more...</b></NavLink>
+          
+        </div>
       </div>
     );
   };

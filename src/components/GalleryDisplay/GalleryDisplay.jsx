@@ -1,6 +1,6 @@
 import React from "react";
 import PlaceAnItem from "../PlaceAnItem/PlaceAnItem";
-const GalleryDisplay = ({ galleryList }) => {
+const GalleryDisplay = ({ galleryList, selectElement }) => {
   return ( 
     galleryList.length>0?
     galleryList.map(
@@ -9,10 +9,11 @@ const GalleryDisplay = ({ galleryList }) => {
         <PlaceAnItem
           key={Math.random()}
           element = {el}
+          selectElement = {selectElement}
         />
       
     )
-  ):<p>Nothing to display. Try an other filter options.</p>
+  ):<p className="mt-5">Nothing to display. Try an other filter options.</p>
   
     
   )
