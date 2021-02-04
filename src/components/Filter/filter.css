@@ -1,0 +1,12 @@
+.nav-filter{
+    border-color:  rgb(226, 119, 31);
+    border-width: 10px 10px 10px 0;
+    border-style: solid;
+    padding: 10px;
+    border-radius: 30px 100px 100px ;
+}
+#searchNav:hover{
+    color: white !important;
+    background-color: rgb(226, 80, 31) !important;
+}
+
