@@ -6,38 +6,49 @@ import ItemPrice from "../ItemPrice/ItemPrice";
 import "./ProductFullInfo.css";
 
 class ProductFullInfo extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
-      price: this.props.element.price,
-      numToBuy : this.props.element.min,
+      price: 0,
+      numToBuy : 0,
     };
     this.changed =[];
-    this.numberOfUnitsToBuy=this.numberOfUnitsToBuy.bind(this)
+    this.element = this.props.itemsArray.filter((el)=>
+      el.id==this.props.match.params.id
+    )
+    this.initializeState()
+    
   }
   render() {
+    console.log(this.props.match);
     return (
+      
+      
+
       <div className="mt-5" className="mc">
-        <Stars star={this.props.element.star} />
+        
+        <Stars star={this.element[0].star} />
         <div className="mt-1 mb-5">
           <Carousel
             key={Math.random()}
-            pictures={this.props.element.pictures}
+            
+            pictures={this.element[0].pictures}
           />
         </div>
-
+        
         <ProductShortDesc
-          name={this.props.element.name}
-          desc={this.props.element.desc}
-          min={this.props.element.min}
-          max={this.props.element.max}
+          name={this.element[0].name}
+          desc={this.element[0].desc}
+          min={this.element[0].min}
+          max={this.element[0].max}
           price={this.state.price}
         />
 
         <div className="mt-5 d-flex flex-wrap  justify-content-between">
           
             
-              {typeof this.props.element.variations[0] !== "undefined" ? (
+              {typeof this.element[0].variations[0] !== "undefined" ? (
                 <div className="variations">
                   <p>
                     <b>Variations:</b>
@@ -58,7 +69,7 @@ class ProductFullInfo extends Component {
                       Choose variation
                     </option>
 
-                    {this.props.element.variations.map((item) => {
+                    {this.element[0].variations.map((item) => {
                       return (
                         <option value={JSON.stringify(item)}>
                           {Object.entries(item)[0][0] +
@@ -75,12 +86,12 @@ class ProductFullInfo extends Component {
               )}
             
 
-            {typeof this.props.element.additives[0] !== "undefined" ? (
+            {typeof this.element[0].additives[0] !== "undefined" ? (
               <div className="additives">
                 <p>
                   <b>Additives:</b>
                 </p>
-                {this.props.element.additives.map((item) => {
+                {this.element[0].additives.map((item) => {
                   return (
                     <div>
                       <input
@@ -89,7 +100,7 @@ class ProductFullInfo extends Component {
                         id={Object.entries(item)[0][0]}
                         autocomplete="off"
                         onChange={(event) => {
-                          if (event.target.checked == true)
+                          if (event.target.checked === true)
                             this.setState({
                               price:
                                 this.state.price +
@@ -117,10 +128,10 @@ class ProductFullInfo extends Component {
               <React.Fragment />
             )}
 
-            {typeof this.props.element.alegens[0] !== "undefined" ?(
+            {typeof this.element[0].alegens[0] !== "undefined" ?(
             <div className="alergens">
               <p><b>Alergens:</b></p>
-              {this.props.element.alegens.map((item)=>
+              {this.element[0].alegens.map((item)=>
                 <div className="alergen"> {item}</div>
                
               )}
@@ -142,16 +153,21 @@ class ProductFullInfo extends Component {
         </div>
         <ItemPrice
           key={Math.random()}
-          min={this.props.element.min}
-          maxOfItem={this.props.element.max}
+          min={this.element[0].min}
+          maxOfItem={this.element[0].max}
           numberOfUnitsToBuy={this.numberOfUnitsToBuy}
           total = {this.state.price*this.state.numToBuy}
         />
       </div>
+    
     );
   }
   numberOfUnitsToBuy(value){
     this.setState({numToBuy : value})
+  }
+  initializeState(){
+    
+    this.setState({price : this.element[0].price, numToBuy : this.element[0].min})
   }
 }
 

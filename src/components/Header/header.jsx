@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Link, NavLink, Switch } from "react-router-dom";
-import { Route, BrowserRouter as Router} from 'react-router-dom'
-import Gallery from "../Gallery/Gallery";
-import Login from "../Login/Login";
-import App from "../../App";
+import { NavLink } from "react-router-dom";
+import './header.css'
 class Header extends Component {
   render() {
     return (
@@ -14,7 +11,7 @@ class Header extends Component {
           className="fixed-top navbar navbar-expand-lg navbar-light bg-light"
           style={gradientTopButtom}
         >
-          <h4 style={whiteText}>Company logo</h4>
+          <h2 id='logo' style={whiteText}>Homemade food</h2>
           <div className="container-sm mx-auto">
             <button
               className="navbar-toggler"
@@ -75,12 +72,15 @@ class Header extends Component {
                   placeholder="Search your next meal"
                   aria-label="Search"
                 ></input>
-                <button
+                 {/* <NavLink to={`/search?q=/${props.element.id}`} style={{color: "red"}}> */}
+                 <button
                   className="castomButtonHover btn btn-outline-light my-2 my-sm-0"
                   type="submit"
                 >
                   GO!
                 </button>
+                 {/* </NavLink> */}
+                
               </form>
               
             </div>

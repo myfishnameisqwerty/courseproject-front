@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import ItemAbout from "../ItemAbout/ItemAbout";
-import ItemPrice from "../ItemPrice/ItemPrice";
 import "./PlaceAnItem.css"
 function PlaceAnItem(props, selectElement) {
   const myBorder = {
@@ -19,13 +18,10 @@ function PlaceAnItem(props, selectElement) {
           key={Math.random()}
           element={props.element}
         />
-        <div className="mt-5" onClick={()=>{
+        
+          <NavLink to={`/catalog/${props.element.id}`} style={{color: "red"}}><b>Learn more...</b></NavLink>
           
-          selectElement(props.element.id)
-        }}>
-          <NavLink to={'/catalog/id'+props.element.id } style={{color: "red"}} onClick={()=> selectElement(props.element)}><b>Learn more...</b></NavLink>
-          
-        </div>
+        
       </div>
     );
   };
