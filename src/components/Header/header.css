@@ -2,3 +2,8 @@
 #logo{
     font-family: 'Dancing Script', cursive;
 }
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}

@@ -1,11 +1,12 @@
 import React from "react";
+import './carousel.css'
 export default function Carousel({pictures}) {
   const scrolId = Math.random() + "";
-  console.log(pictures);
+  
   return (
     <div className="carouselImageBox">
       <div id={scrolId} className="carousel slide" data-ride="carousel">
-        <div className="carousel-inner" style={{ borderRadius: "70px" }}>
+        <div className="carousel-inner" >
           {pictures.map((cur, i) => imgSlide(cur, i))}
           
         </div>
@@ -40,7 +41,7 @@ export default function Carousel({pictures}) {
 }
 
 const imgSlide = (img, i) => {
-  console.log(img, i);
+  
   let classes = "carousel-item";
   if (i === 0) classes += " active";
   return (

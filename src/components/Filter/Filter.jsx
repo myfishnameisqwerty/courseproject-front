@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import "./filter.css";
 import CheckBoxElement from "../CheckBoxElement/CheckBoxElement";
+import { NavLink } from "react-router-dom";
 class Filter extends Component {
   constructor(props){
     super(props);
@@ -30,6 +31,8 @@ class Filter extends Component {
             <input type="date" name="date" id="date" />
             <br />
             <br />
+            <NavLink to="/catalog">
+              
             <button
               type="button"
               className="btn btn-outline-danger mb-5 pl-4 pr-4"
@@ -41,6 +44,8 @@ class Filter extends Component {
             >
               Submit search
             </button>
+          
+            </NavLink>
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Switch } from "react-router-dom";
 import Filter from "../Filter/Filter";
 import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
 import Sorter from "../Sorter/Sorter";
-import ProductFullInfo from "../ProductFullInfo/ProductFullInfo"
+import queryString from "query-string";
+
 class Gallery extends Component {
   constructor(props) {
     super(props);
@@ -13,10 +13,12 @@ class Gallery extends Component {
     };
     this.filterArray = this.filterArray.bind(this);
     this.sortMapByInOrder = this.sortMapByInOrder.bind(this);
-    this.selectElement = this.selectElement.bind(this)
+    this.selectElement = this.selectElement.bind(this);
+    // this.initFilter()
   }
   render() {
     return (
+      
       <React.Fragment>
         <div className="filterResults mt-2 float-right">
           <Sorter
@@ -32,13 +34,39 @@ class Gallery extends Component {
           <div className="col-10">
             <div className="container pb-5 col-10">
               <div className="row">
-                <GalleryDisplay galleryList={this.state.filtredArray} selectElement={this.state.selectElement} />
+                <GalleryDisplay
+                  galleryList={this.state.filtredArray}
+                  selectElement={this.state.selectElement}
+                />
               </div>
             </div>
           </div>
         </div>
       </React.Fragment>
     );
+  }
+  componentDidUpdate(prevProps){
+    if (this.props.location.search!==prevProps.location.search){
+      this.initFilter()
+    }
+  }
+  initFilter() {
+    let search = queryString.parse(this.props.location.search)   
+    if (typeof search.q !== "undefined") {
+      search = search.q.slice(1, search.q.length - 1).toLowerCase()
+      if (!(search.split('').filter(ch => Number(ch)).length) && search!=""){
+        let filtred = this.props.itemsArray.filter((val) => {
+          if (val.name.toLowerCase().includes(search)) {
+            return val;
+          } else if (val.desc.toLowerCase().includes(search)) {
+            return val;
+          }
+        })
+        this.setState({filtredArray:filtred})
+      }
+      
+    }
+
   }
   sortMapByInOrder(by, order) {
     let list = this.state.filtredArray;
@@ -49,7 +77,7 @@ class Gallery extends Component {
   }
   filterArray(tags) {
     let tmpArr = [];
-    let arr = [...this.props.itemsArray]
+    let arr = [...this.props.itemsArray];
     for (const item of arr) {
       for (const tag of tags) {
         if (item["tags"].includes(tag)) {
@@ -62,8 +90,8 @@ class Gallery extends Component {
     }
     this.setState({ filtredArray: tmpArr });
   }
-  selectElement(selected){
-    this.setState({selectedElement: selected})
+  selectElement(selected) {
+    this.setState({ selectedElement: selected });
   }
 }
 

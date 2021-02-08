@@ -2,13 +2,22 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import './header.css'
 class Header extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      request : "",
+      
+    }
+    this.addcallSearchRef = this.addcallSearchRef.bind(this)
+    this.callSearchRef = React.createRef();
+  }
   render() {
     return (
-      <header id="head" style={{ height: "50px" }}>
+      <header id="head">
         {/* <Router> */}
 
         <nav
-          className="fixed-top navbar navbar-expand-lg navbar-light bg-light"
+          className="navbar navbar-expand-lg navbar-light bg-light"
           style={gradientTopButtom}
         >
           <h2 id='logo' style={whiteText}>Homemade food</h2>
@@ -71,15 +80,17 @@ class Header extends Component {
                   type="search"
                   placeholder="Search your next meal"
                   aria-label="Search"
+                  ref={this.callSearchRef}
+                  onChange={this.addcallSearchRef}
                 ></input>
-                 {/* <NavLink to={`/search?q=/${props.element.id}`} style={{color: "red"}}> */}
+                 <NavLink to={`/catalog?q="${this.state.request}"`} style={{color: "red"}}>
                  <button
                   className="castomButtonHover btn btn-outline-light my-2 my-sm-0"
                   type="submit"
                 >
                   GO!
                 </button>
-                 {/* </NavLink> */}
+                 </NavLink>
                 
               </form>
               
@@ -100,6 +111,9 @@ class Header extends Component {
       </header>
     );
   }
+  addcallSearchRef(){
+    this.setState({request : this.callSearchRef.current.value})
+  }
 }
 
 const whiteText = {
@@ -111,5 +125,7 @@ const gradientTopButtom = {
 const gradientButtomTop = {
   background: "linear-gradient(rgb(255, 136, 0), rgb(172, 18, 18))",
 };
+
+
 
 export default Header;

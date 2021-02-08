@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import "./mainPage.css";
 import Gallery from "../Gallery/Gallery";
 import Login from "../Login/Login";
-import Search from "../search/search";
+import Home from "../HomePage/home";
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+
 
 class MainPage extends Component {
   constructor(props) {
@@ -109,9 +110,9 @@ class MainPage extends Component {
       <main className="bg-light ">
         <div className="shadow" style={{ minHeight: "700px" }}>
           <Switch>
+          <Route exact path="/" component={Home} />
             <Route
-              exact
-              path="/catalog/:id"
+              exact path="/catalog/:id"
               render={(matchProps) => (
                 <ProductFullInfo
                   {...matchProps}
@@ -120,11 +121,17 @@ class MainPage extends Component {
                 />
               )}
             />
-            <Route exact path="/search?q=:" component={Search} />
+            <Route exact path={`/catalog?q=`} component={Gallery} />
             <Route
               path="/catalog"
               exact
-              component={() => <Gallery itemsArray={this.state.itemsArray} />}
+              render={(matchProps) => (
+                <Gallery
+                  {...matchProps}
+                  {...this.props}
+                  itemsArray={this.state.itemsArray}
+                />
+              )}
             />
             <Route path="/login" component={Login} />
           </Switch>

@@ -12,9 +12,11 @@ class Sorter extends Component {
             val.sortBy,
             val.order
           );
-        }}
+        }
+      }
+      style={{border: 'none'}}
       >
-        <option disabled selected hidden>
+        <option disabled selected hidden >
           Sort By
         </option>
         <option value='{"sortBy":"star", "order": 1}'>By rating</option>

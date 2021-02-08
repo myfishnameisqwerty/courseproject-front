@@ -6,7 +6,10 @@ function ItemAbout(props) {
   return (
     <React.Fragment>
       <Stars star={props.element.star} />
+      <div className="itemAbout">
       <Carousel key={Math.random()} pictures={props.element.pictures} />
+      </div>
+      
 
       <ProductShortDesc
         name={props.element.name}

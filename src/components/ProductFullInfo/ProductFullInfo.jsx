@@ -21,7 +21,6 @@ class ProductFullInfo extends Component {
     
   }
   render() {
-    console.log(this.props.match);
     return (
       
       
@@ -29,7 +28,7 @@ class ProductFullInfo extends Component {
       <div className="mt-5" className="mc">
         
         <Stars star={this.element[0].star} />
-        <div className="mt-1 mb-5">
+        <div className="productFullInfo mt-1 mb-5">
           <Carousel
             key={Math.random()}
             
