@@ -151,11 +151,11 @@ class ProductFullInfo extends Component {
           ></textarea>
         </div>
         <ItemPrice
-          key={Math.random()}
-          min={this.state.numToBuy}
-          maxOfItem={this.element[0].max}
           numberOfUnitsToBuy={this.numberOfUnitsToBuy.bind(this)}
-          total={this.state.price * this.state.numToBuy}
+          element={this.element[0]}
+          productState={this.state}
+          
+
         />
       </div>
     );

@@ -121,7 +121,7 @@ class MainPage extends Component {
                 />
               )}
             />
-            {/* <Route exact path={`/catalog?q=`} component={Gallery} /> */}
+            <Route exact path={`/catalog?q=`} component={Gallery} />
             <Route
               path="/catalog"
               exact
