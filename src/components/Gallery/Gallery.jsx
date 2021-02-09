@@ -14,7 +14,7 @@ class Gallery extends Component {
     this.filterArray = this.filterArray.bind(this);
     this.sortMapByInOrder = this.sortMapByInOrder.bind(this);
     this.selectElement = this.selectElement.bind(this);
-    // this.initFilter()
+    
   }
   render() {
     return (
@@ -45,11 +45,15 @@ class Gallery extends Component {
       </React.Fragment>
     );
   }
+  componentDidMount(){
+    this.initFilter()
+  }
   componentDidUpdate(prevProps){
     if (this.props.location.search!==prevProps.location.search){
       this.initFilter()
     }
   }
+  
   initFilter() {
     let search = queryString.parse(this.props.location.search)   
     if (typeof search.q !== "undefined") {
@@ -63,6 +67,9 @@ class Gallery extends Component {
           }
         })
         this.setState({filtredArray:filtred})
+        // this.setState((state, props) => ({
+        //   filtredArray: [...state.filtredArray, { }]
+        // }));
       }
       
     }

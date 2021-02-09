@@ -9,15 +9,14 @@ class ProductFullInfo extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {
-      price: 0,
-      numToBuy : 0,
-    };
-    this.changed =[];
     this.element = this.props.itemsArray.filter((el)=>
       el.id==this.props.match.params.id
     )
-    this.initializeState()
+    this.state = {
+      price: this.element[0].price,
+      numToBuy : this.element[0].min,
+    };
+    this.changed =[];
     
   }
   render() {
@@ -25,7 +24,7 @@ class ProductFullInfo extends Component {
       
       
 
-      <div className="mt-5" className="mc">
+      <div className="mc">
         
         <Stars star={this.element[0].star} />
         <div className="productFullInfo mt-1 mb-5">
@@ -44,7 +43,7 @@ class ProductFullInfo extends Component {
           price={this.state.price}
         />
 
-        <div className="mt-5 d-flex flex-wrap  justify-content-between">
+        <div className="mt-5  d-flex flex-wrap  justify-content-between">
           
             
               {typeof this.element[0].variations[0] !== "undefined" ? (
@@ -152,9 +151,9 @@ class ProductFullInfo extends Component {
         </div>
         <ItemPrice
           key={Math.random()}
-          min={this.element[0].min}
+          min={this.state.numToBuy}
           maxOfItem={this.element[0].max}
-          numberOfUnitsToBuy={this.numberOfUnitsToBuy}
+          numberOfUnitsToBuy={this.numberOfUnitsToBuy.bind(this)}
           total = {this.state.price*this.state.numToBuy}
         />
       </div>
@@ -162,12 +161,11 @@ class ProductFullInfo extends Component {
     );
   }
   numberOfUnitsToBuy(value){
-    this.setState({numToBuy : value})
-  }
-  initializeState(){
     
-    this.setState({price : this.element[0].price, numToBuy : this.element[0].min})
+    this.setState({numToBuy : value})
+    
   }
+  
 }
 
 export default ProductFullInfo;

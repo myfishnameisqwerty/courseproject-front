@@ -24,7 +24,7 @@ function ItemPrice({ min, maxOfItem, numberOfUnitsToBuy, total }) {
         <i className="fas fa-shopping-cart ml-1" style={starLikeStyle}></i>
         {/* <i className="fas fa-plus ml-1 " style={starLikeStyle}></i> */}
       </div>
-      <p className="text-secondary">
+      <p className="pb-5 text-secondary">
         <b>Total price: {total}₪</b>
       </p>
     </div>

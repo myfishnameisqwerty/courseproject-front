@@ -121,6 +121,8 @@ const whiteText = {
 };
 const gradientTopButtom = {
   background: "linear-gradient(rgb(172, 18, 18) , rgb(255, 136, 0))",
+  
+  
 };
 const gradientButtomTop = {
   background: "linear-gradient(rgb(255, 136, 0), rgb(172, 18, 18))",
