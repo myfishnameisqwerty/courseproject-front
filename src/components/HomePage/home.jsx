@@ -161,7 +161,7 @@ class Home extends Component {
                 newProducts = newProducts.concat(newProducts.splice(0,4))
                 this.setState({newProducts})
             }}>
-                <i class="fas fa-chevron-left"></i></div>
+                <i className="fas fa-chevron-left"></i></div>
           {this.state.newProducts.map((el, i) => {
               return (i<4?
                     <div style={{width: "20%"}}>
@@ -184,7 +184,7 @@ class Home extends Component {
                 newProducts = removed.concat(newProducts)
                 this.setState({newProducts})
             }}>
-          <i class="fas fa-chevron-right"></i></div>
+          <i className="fas fa-chevron-right"></i></div>
           </div>
       </div>
       </div>
