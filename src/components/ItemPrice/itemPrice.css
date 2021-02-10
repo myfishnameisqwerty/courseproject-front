@@ -1,6 +1,6 @@
-i:hover{
+.shopIcon:hover{
     cursor: pointer;
 }
-i{
+.shopIcon{
     font-size: 28px;
 }

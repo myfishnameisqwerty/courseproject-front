@@ -8,36 +8,35 @@ import "./ProductFullInfo.css";
 class ProductFullInfo extends Component {
   constructor(props) {
     super(props);
-    this.element = this.props.itemsArray.filter(
+    this.product = this.props.itemsArray.filter(
       (el) => el.id == this.props.match.params.id
-    );
+    )[0];
     this.state = {
-      price: this.element[0].price,
-      numToBuy: this.element[0].min,
-      variation: 0,
-      additives: []
+      price: this.product.price,
+      numToBuy: this.product.min,
+      selectedVariation: 0,
+      selectedAdditives: [],
     };
-    
   }
   render() {
     return (
       <div className="mc">
-        <Stars key={Math.random()} star={this.element[0].star} />
+        <Stars key={Math.random()} star={this.product.star} />
         <div className="productFullInfo mt-1 mb-5">
-          <Carousel key={Math.random()} pictures={this.element[0].pictures} />
+          <Carousel key={Math.random()} pictures={this.product.pictures} />
         </div>
 
         <ProductShortDesc
           key={Math.random()}
-          name={this.element[0].name}
-          desc={this.element[0].desc}
-          min={this.element[0].min}
-          max={this.element[0].max}
+          name={this.product.name}
+          desc={this.product.desc}
+          min={this.product.min}
+          max={this.product.max}
           price={this.state.price}
         />
 
         <div className="mt-5  d-flex flex-wrap  justify-content-between">
-          {typeof this.element[0].variations[0] !== "undefined" ? (
+          {Object.keys(this.product.variations).length !== 0 ? (
             <div className="variations">
               <p>
                 <b>Variations:</b>
@@ -46,32 +45,28 @@ class ProductFullInfo extends Component {
                 name="variations"
                 id="variations"
                 onChange={(e) => {
-                  let price = this.state.price
+                  let price = this.state.price;
                   price = Number(
-                    Object.entries(JSON.parse(e.target.value))[0][1])
-                  this.state.additives.forEach(el =>{
-                    this.element[0].additives.forEach(i => {
-                      if (i[el]) price += Number(i[el])
-                    })
-                    })
-                    // console.log(this.element[0].additives[1]['sauce']);
+                    this.product.variations[JSON.parse(e.target.value)]
+                  );
+                  this.state.selectedAdditives.forEach((additiv) => {
+                    price += Number(this.product.additives[additiv]);
+                    
+                  });
+                  
                   this.setState({
                     price,
-                    variation: Object.entries(JSON.parse(e.target.value))[0][0]
+                    selectedVariation: JSON.parse(e.target.value),
                   });
                 }}
               >
                 <option disabled selected hidden>
                   Choose variation
                 </option>
-
-                {this.element[0].variations.map((item) => {
+                {Object.keys(this.product.variations).map((item) => {
                   return (
                     <option value={JSON.stringify(item)}>
-                      {Object.entries(item)[0][0] +
-                        " - " +
-                        Object.entries(item)[0][1] +
-                        "₪"}
+                      {`${item} - ${this.product.variations[item]}₪`}
                     </option>
                   );
                 })}
@@ -80,47 +75,49 @@ class ProductFullInfo extends Component {
           ) : (
             <React.Fragment />
           )}
-          {typeof this.element[0].additives[0] !== "undefined" ? (
+          {Object.keys(this.product.additives).length !== 0 ? (
             <div className="additives">
               <p>
                 <b>Additives:</b>
               </p>
-              {this.element[0].additives.map((item) => {
+              {Object.keys(this.product.additives).map((item) => {
                 return (
                   <div>
                     <input
                       type="checkbox"
                       className="btn-check"
-                      id={Object.entries(item)[0][0]}
+                      id={JSON.stringify(item)}
                       autocomplete="off"
                       onChange={(event) => {
-                        if (event.target.checked === true){
-                          let additives = [...this.state.additives]
-                          additives.push(Object.entries(item)[0][0])
+                        let selectedAdditives = [
+                          ...this.state.selectedAdditives,
+                        ];
+                        if (event.target.checked === true) {
+                          selectedAdditives.push(item);
+
                           this.setState({
                             price:
                               this.state.price +
-                              Number(Object.entries(item)[0][1]),
-                            additives
+                              Number(this.product.additives[item]),
+                            selectedAdditives,
                           });
-                        }
-                        else{
-                          let additives = [...this.state.additives]
-                          additives.splice(additives.indexOf(Object.entries(item)[0][0]),1)
+                        } else {
+                          selectedAdditives.splice(
+                            selectedAdditives.indexOf(item),
+                            1
+                          );
+
                           this.setState({
                             price:
                               this.state.price -
-                              Number(Object.entries(item)[0][1]),
-                            additives
+                              Number(this.product.additives[item]),
+                            selectedAdditives,
                           });
                         }
                       }}
                     />
-                    <label for={Object.entries(item)[0][0]} className="ml-1">
-                      {Object.entries(item)[0][0] +
-                        " - " +
-                        Object.entries(item)[0][1] +
-                        "₪"}
+                    <label for={JSON.stringify(item)} className="ml-1">
+                      {`${item} - ${this.product.additives[item]}₪`}
                     </label>
                   </div>
                 );
@@ -129,12 +126,12 @@ class ProductFullInfo extends Component {
           ) : (
             <React.Fragment />
           )}
-          {typeof this.element[0].alegens[0] !== "undefined" ? (
+          {typeof this.product.alegens[0] !== "undefined" ? (
             <div className="alergens">
               <p>
                 <b>Alergens:</b>
               </p>
-              {this.element[0].alegens.map((item) => (
+              {this.product.alegens.map((item) => (
                 <div className="alergen"> {item}</div>
               ))}
             </div>
@@ -152,10 +149,8 @@ class ProductFullInfo extends Component {
         </div>
         <ItemPrice
           numberOfUnitsToBuy={this.numberOfUnitsToBuy.bind(this)}
-          element={this.element[0]}
+          element={this.product}
           productState={this.state}
-          
-
         />
       </div>
     );

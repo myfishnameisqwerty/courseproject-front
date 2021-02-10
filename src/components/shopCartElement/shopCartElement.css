@@ -1,0 +1,10 @@
+.orderDetails {
+    
+    height: 80px;
+
+}
+.orderDetails img{
+    
+    height: 80px;
+    width: auto !important;
+}

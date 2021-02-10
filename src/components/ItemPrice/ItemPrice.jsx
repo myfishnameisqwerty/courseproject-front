@@ -1,5 +1,7 @@
 import React from "react";
-import './itemPrice.css'
+import './itemPrice.css';
+import { NavLink } from "react-router-dom";
+
 function ItemPrice({numberOfUnitsToBuy, element, productState }) {
   const starLikeStyle = {
     color: "red"}
@@ -22,7 +24,7 @@ function ItemPrice({numberOfUnitsToBuy, element, productState }) {
               numberOfUnitsToBuy(Number(e.target.value))
           }}
         />
-        <i className="fas fa-shopping-cart ml-3" style={starLikeStyle}></i>
+        <i className="shopIcon fas fa-shopping-cart ml-3" style={starLikeStyle}></i>
       </div>
       <p className="pb-5 text-secondary">
         <b>Total price: {productState.price*productState.numToBuy}₪</b>

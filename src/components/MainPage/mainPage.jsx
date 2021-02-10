@@ -3,6 +3,7 @@ import "./mainPage.css";
 import Gallery from "../Gallery/Gallery";
 import Login from "../Login/Login";
 import Home from "../HomePage/home";
+import ShopElement from "../shopCartElement/shopCartElement"
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -22,8 +23,8 @@ class MainPage extends Component {
           min: 10,
           max: 100,
           pictures: ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
-          additives: [{ onion: "3" }],
-          variations: [{ beef: "12" }, { mutton: "15" }, { chicken: 10 }],
+          additives: { onion: "3" },
+          variations: { beef: "12" ,  mutton: "15" ,  chicken: 10 },
           alegens: ["al1", "al2"],
           tags: ["meat", "kosher"],
         },
@@ -37,8 +38,8 @@ class MainPage extends Component {
           min: 2,
           max: 10,
           pictures: ["img/rb1.jpg", "img/rb2.jpg", "img/rb3.jpg"],
-          additives: [{ onion: "3" }, { sauce: "5" }],
-          variations: [{ rare: "140" }, { mw: "140" }, { wd: 140 }],
+          additives: { onion: "3" ,  sauce: "5" },
+          variations: { rare: "140" , mw: "140" , wd: 140 },
           alegens: [],
           tags: ["meat", "kosher"],
         },
@@ -53,7 +54,7 @@ class MainPage extends Component {
           max: 20,
           pictures: ["img/hummus.jpg"],
           additives: [],
-          variations: [{ var1: "30" }, { var2: "35" }, { var3: 32 }],
+          variations: { var1: "30" ,  var2: "35" , var3: 32 },
           alegens: ["al1", "al2"],
           tags: ["salad", "kosher", "parve"],
         },
@@ -82,8 +83,8 @@ class MainPage extends Component {
           min: 4,
           max: 20,
           pictures: ["img/sf1.jpg", "img/sf2.jpg"],
-          additives: [{ onion: "3" }, { sauce: "5" }],
-          variations: [{ crispy: "50" }, { baked: "60" }, { oven: 55 }],
+          additives: { onion: "3" , sauce: "5" },
+          variations: { crispy: "50" ,  baked: "60" , oven: 55 },
           alegens: [],
           tags: ["fish", "kosher", "parve"],
         },
@@ -97,7 +98,7 @@ class MainPage extends Component {
           min: 1,
           max: 50,
           pictures: ["img/Shrimps1.jpg", "img/Shrimps2.jpg"],
-          additives: [{ onion: "3" }, { sauce: "5" }],
+          additives: { onion: "3" , sauce: "5" },
           variations: [],
           alegens: [],
           tags: ["fish"],
@@ -134,6 +135,7 @@ class MainPage extends Component {
               )}
             />
             <Route path="/login" component={Login} />
+            <Route path="/shop" component={ShopElement} />
           </Switch>
         </div>
       </main>
