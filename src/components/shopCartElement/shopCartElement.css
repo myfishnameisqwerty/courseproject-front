@@ -5,6 +5,10 @@
 }
 .orderDetails img{
     
-    height: 80px;
-    width: auto !important;
+    width: 130px !important;
+    height: auto !important;
+}
+.fa-minus-circle:hover{
+    color: brown;
+    cursor: pointer;
 }

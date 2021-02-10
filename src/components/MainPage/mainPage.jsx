@@ -3,7 +3,8 @@ import "./mainPage.css";
 import Gallery from "../Gallery/Gallery";
 import Login from "../Login/Login";
 import Home from "../HomePage/home";
-import ShopElement from "../shopCartElement/shopCartElement"
+// import ShopElement from "../shopCartElement/shopCartElement"
+import ShopCart from "../shopCart/shopCart"
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -135,7 +136,8 @@ class MainPage extends Component {
               )}
             />
             <Route path="/login" component={Login} />
-            <Route path="/shop" component={ShopElement} />
+            {/* <Route path="/shop" component={ShopElement} /> */}
+            <Route path="/shopcart" component={ShopCart} />
           </Switch>
         </div>
       </main>

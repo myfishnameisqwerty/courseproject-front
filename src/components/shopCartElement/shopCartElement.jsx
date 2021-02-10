@@ -5,57 +5,40 @@ class ShopElement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orderId: Math.random(),
-      orderedProduct: [
-        {
-          id: 1,
-          name: "Chebureki",
-          desc:
-            "Cheburek is made from unleavened dough filled with ground meat, onions and spices, fried in oil. It is a common street food in Russia.",
-          star: 5,
-          price: 10,
-          min: 10,
-          max: 100,
-          pictures: ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
-          additives: { onion: "3", sauce: "5" },
-          variations: { beef: "12", mutton: "15", chicken: "10" },
-          alegens: ["al1", "al2"],
-          tags: ["meat", "kosher"],
-        },
-      ],
-      orderInfo: {
-        variation: 0,
-        additives: ["onion", "sauce"],
-        numToBuy: "24",
-      },
+      unitPrice : 0
     };
   }
+  componentDidMount(){
+    this.calcUnitPrice()
+  }
   render() {
+    const orderInfo = this.props.orderInfo
+    const fullItemInfo = this.props.fullItemInfo
     return (
       <div className="orderDetails">
-        <div className="container d-flex justify-content-around">
+        <div className=" d-flex justify-content-around align-items-center">
           <Carousel
             key={Math.random()}
-            pictures={this.state.orderedProduct[0].pictures}
+            pictures={fullItemInfo.pictures}
           />
           <div>
-            <h4>{this.state.orderedProduct[0].name}</h4>
-            {this.state.orderInfo.variation !== 0 ? (
+            <h4>{fullItemInfo.name}</h4>
+            {orderInfo.variation !== 0 ? (
               <div>
                 <span>
                   <b>Variation:</b>
                 </span>
-                <span>{` ${this.state.orderInfo.variation} `}</span>
+                <span>{` ${orderInfo.variation} `}</span>
               </div>
             ) : (
               <React.Fragment />
             )}
-            {typeof this.state.orderInfo.additives[0] !== "undefined" ? (
+            {typeof orderInfo.additives[0] !== "undefined" ? (
               <div>
                 <span>
                   <b>Additives:</b>
                 </span>
-                {this.state.orderInfo.additives.map((v) => (
+                {orderInfo.additives.map((v) => (
                   <span>{` ${v} `}</span>
                 ))}
               </div>
@@ -63,32 +46,38 @@ class ShopElement extends Component {
               <React.Fragment />
             )}
           </div>
+          
           <div>
             <div>
               <span>
                 <b>Unit price:</b>
               </span>
-              {console.log(
-                typeof this.state.orderInfo.additives[0] === "undefined"
-              )}
-              <span>{` ${this.calcUnitPrice()}`}</span>
+              <span>{` ${this.state.unitPrice}₪`}</span>
             </div>
             <div>
               <span>
                 <b>Amount:</b>
               </span>
-              <span>{` ${this.state.orderInfo.numToBuy}`}</span>
+              <span>{` ${orderInfo.quantity}`}</span>
             </div>
-            <div></div>
+            <div>
+              <span>
+                <b>Total price:</b>
+              </span>
+              <span>{` ${this.state.unitPrice*orderInfo.quantity}₪`}</span>
+            </div>
           </div>
+          
+          <i className="far fa-minus-circle fa-4x" onClick={()=>this.props.removeOrder(orderInfo.orderId)}></i>
+        
         </div>
       </div>
     );
   }
   calcUnitPrice() {
-    const variation = this.state.orderInfo.variation;
-    const orderAdditives = this.state.orderInfo.additives;
-    const orderedProduct = this.state.orderedProduct[0];
+    const variation = this.props.orderInfo.variation;
+    const orderAdditives = this.props.orderInfo.additives;
+    const orderedProduct = this.props.fullItemInfo;
     let unitPrice = orderedProduct.price;
     if (variation !== 0) 
       unitPrice = Number(orderedProduct.variations[variation]);
@@ -98,7 +87,8 @@ class ShopElement extends Component {
         );
       }
     
-    return unitPrice
+    this.setState({unitPrice}) 
+    this.props.updateTotalSum(unitPrice*this.props.orderInfo.quantity)
   }
 }
 

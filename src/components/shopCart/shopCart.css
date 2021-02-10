@@ -1,0 +1,8 @@
+.ordersList{
+    width: 70%;
+    float: left;
+}
+.total{
+    width: 30%;
+    float:right;
+}
