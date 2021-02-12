@@ -8,7 +8,7 @@
     width: 130px !important;
     height: auto !important;
 }
-.fa-minus-circle:hover{
+.fa-trash:hover{
     color: brown;
     cursor: pointer;
 }

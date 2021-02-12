@@ -16,6 +16,7 @@ class ProductFullInfo extends Component {
       numToBuy: this.product.min,
       selectedVariation: 0,
       selectedAdditives: [],
+      notations : ""
     };
   }
   render() {
@@ -145,6 +146,9 @@ class ProductFullInfo extends Component {
             cols="60"
             rows="7"
             placeholder="Let us know, if you have an allergy or you want to make additional customization."
+            onChange={(e)=>{
+              this.setState({notations: e.target.value})
+            }}
           ></textarea>
         </div>
         <ItemPrice

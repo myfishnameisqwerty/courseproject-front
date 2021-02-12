@@ -33,6 +33,7 @@ function ItemPrice({ numberOfUnitsToBuy, element, productState }) {
                   quantity: productState.numToBuy,
                   variation: productState.selectedVariation,
                   additives: productState.selectedAdditives,
+                  notations: productState.notations
                 },
                 fullItemInfo: element,
               };
