@@ -9,6 +9,7 @@ class ShopCart extends Component {
       orders: [],
       totalSum: 0,
       totalShip: 0,
+      selectAll: true,
     };
     this.removeOrder = this.removeOrder.bind(this);
     this.updateTotals = this.updateTotals.bind(this);
@@ -16,6 +17,10 @@ class ShopCart extends Component {
   componentDidMount() {
     const orders = JSON.parse(localStorage.getItem("homefood-ordersInProcess"));
     if (orders) this.setState({ orders });
+    
+  }
+  componentDidUpdate(){
+
   }
   updateTotals(totalSum, totalShip) {
     totalSum += this.state.totalSum;
@@ -32,8 +37,17 @@ class ShopCart extends Component {
   render() {
     const orders = this.state.orders;
     return (
-      <div className="row mt-5">
-        <div className="float-left col col-lg-9" style={{backgroundColor: 'white'}}>
+      <div className="shopCart row mt-5">
+        <div className="float-left col col-lg-9" style={{backgroundColor: 'white'}} >
+        <div className="ml-2">
+
+        <input type="checkbox" name="selectAll" id="selectAll" checked={this.state.selectAll} onChange={(e)=>{
+          this.setState({selectAll:e.target.checked}
+            )
+        }}/>
+        <label className="ml-2" htmlFor="selectAll">Select all</label>
+        </div>
+        {/* {console.log('select all: ', this.state.selectAll)} */}
           {orders.map((order) => {
             return (
               <PendingOrders
@@ -41,14 +55,17 @@ class ShopCart extends Component {
                 fullItemInfo={order.fullItemInfo}
                 removeOrder={this.removeOrder}
                 updateTotals={this.updateTotals}
+                selectAll={this.state.selectAll}
               />
             );
           })}
+          {console.log('selectAll - ',this.state.selectAll)}
         </div>
         <div className="float-right col-md col-lg-3" style={{backgroundColor: 'white'}}>
             <OrderSummary totalSum={this.state.totalSum} totalShip={this.state.totalShip} />
             </div>
       </div>
+    
     );
   }
 }

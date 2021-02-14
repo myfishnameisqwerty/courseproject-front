@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./header.css";
+import PendingOrders from "../pendingOrders/pendingOrders";
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       numberInBasket: 0,
+      orders: null,
     };
     this.addcallSearchRef = this.addcallSearchRef.bind(this);
     this.callSearchRef = React.createRef();
   }
   componentDidMount() {
-    const numberInBasket = localStorage.getItem("homefood-ordersInProcess")
-      ? JSON.parse(localStorage.getItem("homefood-ordersInProcess")).length
-      : 0;
-    this.setState({ numberInBasket });
+    
+    const orders = JSON.parse(localStorage.getItem("homefood-ordersInProcess")) 
+    const numberInBasket = orders?orders.length:0
+    this.setState({ numberInBasket, orders });
   }
   render() {
     return (
@@ -47,42 +49,17 @@ class Header extends Component {
                     Home
                   </NavLink>
                 </li>
-
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    style={whiteText}
-                  >
-                    View dishes
-                  </a>
-                  <div
-                    className="dropdown-menu "
-                    aria-labelledby="navbarDropdown"
-                    style={gradientButtomTop}
-                  >
-                    <NavLink
+                <li className="nav-item active">
+                <NavLink
                       to="/catalog"
-                      className="dropdown-item castomDropMenuHover"
+                      className="nav-link"
                       style={whiteText}
                     >
-                      For home
+                      View dishes
                     </NavLink>
-
-                    <a
-                      className="dropdown-item castomDropMenuHover"
-                      href="#"
-                      style={whiteText}
-                    >
-                      More then 10 people
-                    </a>
-                  </div>
                 </li>
+
+              
               </ul>
               <form className="form-inline my-2 my-lg-0">
                 <input
@@ -117,8 +94,10 @@ class Header extends Component {
               Sign Up
             </button>
           </div>
+          <div className="dropdown">
+
           <NavLink to="/shopcart">
-            <div className="shopcart">
+            <div className="dropdown-btn shopcart">
               <i
                 className="ml-2 fas fa-shopping-cart fa-2x"
                 style={whiteText}
@@ -127,10 +106,29 @@ class Header extends Component {
                 style={{ color: "white", fontSize: "23px" }}
               >{`${this.state.numberInBasket}`}</span>
             </div>
+            <div className="dropdown-content">
+              {this.showShortOrderInfo()}
+            </div>
           </NavLink>
+          </div>
         </nav>
       </header>
     );
+  }
+  showShortOrderInfo(){
+    const orders = this.state.orders
+    if (orders)
+    return (
+      orders.map((order) => {
+        return (
+          <PendingOrders
+            orderInfo={order.orderInfo}
+            fullItemInfo={order.fullItemInfo}
+          />
+        );
+      })
+    )
+    
   }
   addcallSearchRef() {
     this.setState({ request: this.callSearchRef.current.value });

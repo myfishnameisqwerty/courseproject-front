@@ -6,10 +6,30 @@ class PendingOrders extends Component {
     super(props);
     this.state = {
       unitPrice: 0,
+      selected: false,
     };
   }
   componentDidMount() {
     this.calcUnitPrice();
+    
+    
+  }
+
+  updateTolats(state){
+    if (state){
+            console.log('up ', this.state.unitPrice, 'q ', this.props.orderInfo.quantity);    
+      this.props.updateTotals(
+        this.state.unitPrice * this.props.orderInfo.quantity,
+        this.props.fullItemInfo.shipping
+      );
+    }
+    else{
+
+      this.props.updateTotals(
+        this.state.unitPrice * this.props.orderInfo.quantity * -1,
+        this.props.fullItemInfo.shipping * -1
+      );
+    }
   }
   render() {
     const orderInfo = this.props.orderInfo;
@@ -19,19 +39,13 @@ class PendingOrders extends Component {
         <div className=" d-flex justify-content-around align-items-center">
           <input
             type="checkbox"
+            className="fullInfo"
             name={orderInfo.orderId + ""}
             id={orderInfo.orderId + ""}
+            checked={this.state.selected}
             onChange={(e) => {
-              if (e.target.checked)
-                this.props.updateTotals(
-                  this.state.unitPrice * orderInfo.quantity,
-                  fullItemInfo.shipping
-                );
-              else
-                this.props.updateTotals(
-                  this.state.unitPrice * orderInfo.quantity * -1,
-                  fullItemInfo.shipping * -1
-                );
+              this.setState({selected:e.target.checked})
+              this.updateTolats(e.target.checked)
             }}
           />
           <Carousel key={Math.random()} pictures={fullItemInfo.pictures} />
@@ -61,8 +75,8 @@ class PendingOrders extends Component {
             )}
           </div>
 
-          <div>
-            <div>
+          <div className="fullInfo">
+            <div >
               <span>
                 <b>Unit price:</b>
               </span>
@@ -78,21 +92,41 @@ class PendingOrders extends Component {
               <span>
                 <b>Total price:</b>
               </span>
-              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪ +${fullItemInfo.shipping}₪(shipping)`}</span>
+              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪ +${
+                fullItemInfo.shipping
+              }₪(shipping)`}</span>
             </div>
           </div>
-          <div>
-            <textarea name="note" id="note" cols="30" rows="3" style={{resize: 'none'}} value={this.props.orderInfo.notations} placeholder="Let us know, if you have an allergy or you want to make additional customization."></textarea>
+          <div className="shortInfo">
+              <div>
+                <b>Total price:</b>
+              </div>
+              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪ +${
+                fullItemInfo.shipping
+              }₪(shipping)`}</span>
+            </div>
+
+          <div className="fullInfo">
+            <textarea
+              name="note"
+              id="note"
+              cols="30"
+              rows="3"
+              style={{ resize: "none" }}
+              value={this.props.orderInfo.notations}
+              placeholder="Let us know, if you have an allergy or you want to make additional customization."
+            ></textarea>
           </div>
+         
           <i
-            className="far fa-trash fa-3x"
+            className="far fa-trash fa-3x fullInfo"
             onClick={() => this.props.removeOrder(orderInfo.orderId)}
           ></i>
         </div>
       </div>
     );
   }
-  
+
   calcUnitPrice() {
     const variation = this.props.orderInfo.variation;
     const orderAdditives = this.props.orderInfo.additives;

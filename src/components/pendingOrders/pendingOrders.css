@@ -12,3 +12,10 @@
     color: brown;
     cursor: pointer;
 }
+
+.dropdown-content .fullInfo{
+    display: none;
+}
+.shopCart .shortInfo{
+    display: none;
+}

@@ -7,3 +7,23 @@ header{
     top: 0;
     z-index: 1;
 }
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-content {
+    width: 350px;
+    display: none;
+    position: absolute;
+    right: 1px;
+    z-index: 2;
+    background-color: white;
+    justify-content: space-between !important;
+}
+.dropdown-content span{
+    font-size: 10px;
+}
+.dropdown-content h4, div{
+    font-size: 15px;
+}
+.dropdown:hover .dropdown-content {display: block;}
