@@ -180,7 +180,6 @@ class Home extends Component {
               
                 let newProducts=[...this.state.newProducts]
                 let removed = newProducts.splice(-4)
-                console.log(removed);
                 newProducts = removed.concat(newProducts)
                 this.setState({newProducts})
             }}>

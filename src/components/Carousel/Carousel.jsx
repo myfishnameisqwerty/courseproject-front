@@ -45,8 +45,8 @@ const imgSlide = (img, i) => {
   let classes = "carousel-item";
   if (i === 0) classes += " active";
   return (
-    <div className={classes}>
-      <img className="d-block w-100" src={`/${img}`} />
+    <div className={classes} key={Math.random()}>
+      <img key={Math.random()} className="d-block w-100" src={`/${img}`} />
     </div>
   );
 };

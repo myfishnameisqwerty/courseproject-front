@@ -5,6 +5,7 @@ import Login from "../Login/Login";
 import Home from "../HomePage/home";
 // import ShopElement from "../shopCartElement/shopCartElement"
 import ShopCart from "../shopCart/shopCart"
+import Payment from "../payment/payment"
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -144,6 +145,7 @@ class MainPage extends Component {
             <Route path="/login" component={Login} />
             {/* <Route path="/shop" component={ShopElement} /> */}
             <Route path="/shopcart" component={ShopCart} />
+            <Route path="/payment" component={Payment} />
           </Switch>
         </div>
       </main>

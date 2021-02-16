@@ -11,13 +11,10 @@ class PendingOrders extends Component {
   }
   componentDidMount() {
     this.calcUnitPrice();
-    
-    
   }
 
   updateTolats(state){
-    if (state){
-            console.log('up ', this.state.unitPrice, 'q ', this.props.orderInfo.quantity);    
+    if (state){  
       this.props.updateTotals(
         this.state.unitPrice * this.props.orderInfo.quantity,
         this.props.fullItemInfo.shipping
@@ -35,17 +32,18 @@ class PendingOrders extends Component {
     const orderInfo = this.props.orderInfo;
     const fullItemInfo = this.props.fullItemInfo;
     return (
-      <div className="orderDetails mb-4">
+      <div className="orderDetails mb-4 ">
         <div className=" d-flex justify-content-around align-items-center">
           <input
             type="checkbox"
-            className="fullInfo"
+            className="fullInfo check"
             name={orderInfo.orderId + ""}
             id={orderInfo.orderId + ""}
             checked={this.state.selected}
             onChange={(e) => {
               this.setState({selected:e.target.checked})
               this.updateTolats(e.target.checked)
+              this.props.updateSelectedOrders(this.props.index)
             }}
           />
           <Carousel key={Math.random()} pictures={fullItemInfo.pictures} />
@@ -67,7 +65,7 @@ class PendingOrders extends Component {
                   <b>Additives:</b>
                 </span>
                 {orderInfo.additives.map((v) => (
-                  <span>{` ${v} `}</span>
+                  <span key={Math.random()}>{` ${v} `}</span>
                 ))}
               </div>
             ) : (
@@ -113,13 +111,13 @@ class PendingOrders extends Component {
               cols="30"
               rows="3"
               style={{ resize: "none" }}
-              value={this.props.orderInfo.notations}
+              defaultValue={this.props.orderInfo.notations}
               placeholder="Let us know, if you have an allergy or you want to make additional customization."
             ></textarea>
           </div>
          
           <i
-            className="far fa-trash fa-3x fullInfo"
+            className="far fa-trash fa-3x fullInfo trash"
             onClick={() => this.props.removeOrder(orderInfo.orderId)}
           ></i>
         </div>

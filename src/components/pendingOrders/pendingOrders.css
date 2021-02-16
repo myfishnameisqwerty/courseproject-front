@@ -19,3 +19,12 @@
 .shopCart .shortInfo{
     display: none;
 }
+.payment .check{
+    display: none;
+}
+.payment textarea{
+    display: none;
+}
+.payment .trash{
+    display: none;   
+}

@@ -122,6 +122,7 @@ class Header extends Component {
       orders.map((order) => {
         return (
           <PendingOrders
+          key={Math.random()}
             orderInfo={order.orderInfo}
             fullItemInfo={order.fullItemInfo}
           />

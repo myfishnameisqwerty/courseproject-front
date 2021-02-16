@@ -5,13 +5,14 @@ import Stars from "../Stars/Stars";
 function ItemAbout(props) {
   return (
     <React.Fragment>
-      <Stars star={props.element.star} />
+      <Stars key={Math.random()} star={props.element.star} />
       <div className="itemAbout">
       <Carousel key={Math.random()} pictures={props.element.pictures} />
       </div>
       
 
       <ProductShortDesc
+        key={Math.random()}
         name={props.element.name}
         desc={props.element.desc}
         min={props.element.min}
