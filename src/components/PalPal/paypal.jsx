@@ -14,7 +14,7 @@ export default function PayPal({totalSum}){
                 {
                   description: "homemade food",
                   amount: {
-                    currency_code: "NIS",
+                    currency_code: "ILS",
                     value: totalSum,
                   },
                 },
@@ -31,9 +31,10 @@ export default function PayPal({totalSum}){
         })
         .render(paypal.current);
     }, []);
+    
     return(
         <div>
-<div ref={paypal}></div>
+            <div ref={paypal}>{alert('hallo!!')}</div>
         </div>
     )
     

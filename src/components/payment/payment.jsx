@@ -122,8 +122,8 @@ class PaymentProcess extends Component {
   }
   onClickOpenPayment() {
     if (this.verifyInput()) {
-        console.log(window);
-        <PayPal totalSum={this.state.totalSum+this.state.urgent+this.state.deliveryPrice}/>
+        console.log(window.paypal);
+        return <PayPal totalSum={this.state.totalSum+this.state.urgent+this.state.deliveryPrice}/>
     }
   }
   deliveryAddress() {

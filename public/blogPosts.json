@@ -1,0 +1,24 @@
+[{ 
+    "id": "1",
+    "postDate": "10/02/2020",
+    "header": "short title",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, vero. Repellat vitae ea incidunt necessitatibus debitis illo. Molestias modi corporis ipsum placeat iusto ex unde numquam. Atque, quidem! Nihil, nam?",
+    "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"]
+
+},
+{
+    "id": "2",
+    "postDate": "10/02/2020",
+    "header": "short title",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, vero. Repellat vitae ea incidunt necessitatibus debitis illo. Molestias modi corporis ipsum placeat iusto ex unde numquam. Atque, quidem! Nihil, nam?",
+    "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"]
+
+},
+{
+    "id": "3",
+    "postDate": "10/02/2020",
+    "header": "short title",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, vero. Repellat vitae ea incidunt necessitatibus debitis illo. Molestias modi corporis ipsum placeat iusto ex unde numquam. Atque, quidem! Nihil, nam?",
+    "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"]
+
+}]

@@ -7,6 +7,8 @@ import Home from "../HomePage/home";
 import ShopCart from "../shopCart/shopCart"
 import Payment from "../payment/payment"
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
+import Blog from "../blog/blog"
+import BlogFullInfo from "../blogFullInfo/blogFullInfo"
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 
@@ -146,6 +148,8 @@ class MainPage extends Component {
             {/* <Route path="/shop" component={ShopElement} /> */}
             <Route path="/shopcart" component={ShopCart} />
             <Route path="/payment" component={Payment} />
+            <Route exact path="/blog" component={Blog} />
+            <Route path="/blog/:id" component={BlogFullInfo}/>
           </Switch>
         </div>
       </main>
