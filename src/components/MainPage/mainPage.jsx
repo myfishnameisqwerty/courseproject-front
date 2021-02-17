@@ -9,6 +9,8 @@ import Payment from "../payment/payment"
 import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import Blog from "../blog/blog"
 import BlogFullInfo from "../blogFullInfo/blogFullInfo"
+import ContactUs from "../contactUs/contactUs"
+
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 
@@ -150,6 +152,7 @@ class MainPage extends Component {
             <Route path="/payment" component={Payment} />
             <Route exact path="/blog" component={Blog} />
             <Route path="/blog/:id" component={BlogFullInfo}/>
+            <Route path="/contactUs" component={ContactUs}/>
           </Switch>
         </div>
       </main>
