@@ -10,6 +10,7 @@ import ProductFullInfo from "../ProductFullInfo/ProductFullInfo";
 import Blog from "../blog/blog"
 import BlogFullInfo from "../blogFullInfo/blogFullInfo"
 import ContactUs from "../contactUs/contactUs"
+import About from "../about/about"
 
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
@@ -153,6 +154,7 @@ class MainPage extends Component {
             <Route exact path="/blog" component={Blog} />
             <Route path="/blog/:id" component={BlogFullInfo}/>
             <Route path="/contactUs" component={ContactUs}/>
+            <Route path="/about" component={About}/>
           </Switch>
         </div>
       </main>
