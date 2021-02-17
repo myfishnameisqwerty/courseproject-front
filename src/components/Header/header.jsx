@@ -50,6 +50,11 @@ class Header extends Component {
                   </NavLink>
                 </li>
                 <li className="nav-item active">
+                  <NavLink className="nav-link" to="/blog" exact style={whiteText}>
+                    Our blog
+                  </NavLink>
+                </li>
+                <li className="nav-item active">
                 <NavLink
                       to="/catalog"
                       className="nav-link"

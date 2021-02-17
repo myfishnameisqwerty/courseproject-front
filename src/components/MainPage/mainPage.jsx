@@ -122,7 +122,7 @@ class MainPage extends Component {
   render() {
     return (
       <main className="bg-light ">
-        <div className="shadow" style={{ minHeight: "700px" }}>
+        <div className="shadow" style={{ minHeight: "800px" }}>
           <Switch>
           <Route exact path="/" component={Home} />
             <Route

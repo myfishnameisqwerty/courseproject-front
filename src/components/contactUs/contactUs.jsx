@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Location from "../location/location"
 
+
 class ContactUs extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +51,7 @@ class ContactUs extends Component {
         <div>more info, phone, etc</div>
        
 
+          
 
         <Location
                     isMarkerShown
@@ -60,8 +62,8 @@ class ContactUs extends Component {
                     containerElement={<div style={{height: '100%'}} className="map"></div>}
                     mapElement={<div style={{height: '400px', width:'50%', margin:'auto'}} className="inner-map"></div>}
                     googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVtHhDa2ErB1UuzEc1t3dXozBGaSHiQZk&v=3.exp&libraries=geometry,drawing,places"
-
                 />
+          <br/>
        
       </div>
     );
