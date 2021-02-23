@@ -1,0 +1,8 @@
+.blogFullInfo img{
+    margin: auto;
+    height: 300px;
+    width: auto !important;
+}
+.comment i:hover{
+    cursor: pointer;
+}

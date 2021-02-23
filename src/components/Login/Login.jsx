@@ -9,7 +9,7 @@ class Login extends Component {
     return (
       <div style={desighn}>
         
-          <form >
+          <form className="form">
             <div className="pt-5 mb-5">
               <label for="exampleInputEmail1" className="form-label">
                <b>Email address</b> 
@@ -45,6 +45,7 @@ class Login extends Component {
             <button id="login" type="submit" className="btn btn-danger">
               Login
             </button>
+            
           </form>
         
       </div>

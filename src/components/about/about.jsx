@@ -30,7 +30,7 @@ src="https://www.youtube.com/embed/boTfxLdDv9I" style={{height:'360px', width:'7
         this.loadPictures()
     }
     loadPictures(){
-        axios.get('aboutPictures.json').then(res => {
+        axios.get('http://localhost:3000/aboutPictures').then(res => {
             const pictures = res.data
             this.setState({pictures})
         })

@@ -10,7 +10,7 @@ class Blog extends Component {
          }
     }
     loadPosts(){
-        axios.get('blogPosts.json').then(res => {
+        axios.get('http://localhost:3000/blogposts').then(res => {
             const posts = res.data
             this.setState({posts})
         })

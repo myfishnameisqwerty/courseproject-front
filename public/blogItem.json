@@ -1,0 +1,9 @@
+{ 
+    "id": "1",
+    "postDate": "10/02/2020",
+    "header": "short title",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, vero. Repellat vitae ea incidunt necessitatibus debitis illo. Molestias modi corporis ipsum placeat iusto ex unde numquam. Atque, quidem! Nihil, nam?",
+    "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
+    "comments": [{"id": 1,"name": "Josh Shvily", "date": "11/11/2011", "comment" : "ssssssssssssssssssssssssssssss",  "likes" : "10", "dislikes" : "25"}, {"id":2, "name": "Marina Shvily", "date": "11/08/2015", "comment" : "rrrrrrrrrrrrrrrr",  "likes" : "50", "dislikes" : "2"}, {"id":3, "name": "Abram Abram", "date": "24/02/2018", "comment" : "aaaaaaaaaaaaaaaa", "likes" : "20", "dislikes" : "5"}]
+
+}

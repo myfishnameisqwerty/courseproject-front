@@ -4,6 +4,7 @@ import PendingOrders from "../pendingOrders/pendingOrders";
 import { NavLink } from "react-router-dom";
 import PayPal from "../PalPal/paypal"
 import "./payment.css";
+import { PayPalButton } from 'react-paypal-button'
 
 class PaymentProcess extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class PaymentProcess extends Component {
       delivery: false,
       fields: { name: "", tel: "", email: "", spam: true },
       address: { city: "", street: "", appartment: "" },
+      verify: null
     };
   }
   componentDidMount() {
@@ -37,8 +39,9 @@ class PaymentProcess extends Component {
       this.setState({
         orderDate: date,
         urgent: this.state.totalSum * 0.3,
+        verify: null
       });
-    } else this.setState({ orderDate: date, urgent: 0 });
+    } else this.setState({ orderDate: date, urgent: 0, verify: null });
   }
   loadTotal() {
     const totalSum = Number(localStorage.getItem("homefood-selectedTotal"));
@@ -59,6 +62,7 @@ class PaymentProcess extends Component {
     this.setState({ selectedOrders });
   }
   onChangeRadioDelivery(event) {
+    this.setState({verify:null})
     event.target.value === "pickup"
       ? this.setState({ deliveryPrice: 0, delivery: false })
       : this.state.totalSum < 650
@@ -69,7 +73,7 @@ class PaymentProcess extends Component {
   handleChangePersonal(e) {
     let fields = this.state.fields;
     fields[e.target.name] = e.target.value;
-    this.setState({ fields });
+    this.setState({ fields, verify: null });
   }
   handleChangeAddress(e) {
     let address = this.state.address;
@@ -122,8 +126,18 @@ class PaymentProcess extends Component {
   }
   onClickOpenPayment() {
     if (this.verifyInput()) {
-        console.log(window.paypal);
-        return <PayPal totalSum={this.state.totalSum+this.state.urgent+this.state.deliveryPrice}/>
+      const state = this.state
+      const paypalOptions = {
+        clientId: state.fields.email,
+        intent: 'capture'
+      }
+      const buttonStyles = {
+        layout: 'vertical',
+        shape: 'rect',
+      }
+        this.setState({verify: <PayPalButton paypalOptions={paypalOptions}
+          buttonStyles={buttonStyles} amount={state.totalSum+state.deliveryPrice+state.urgent}/>})
+        
     }
   }
   deliveryAddress() {
@@ -247,13 +261,13 @@ class PaymentProcess extends Component {
           </div>
         ) : null}
         <br />
-        <button
+        {this.state.verify===null?<button
           className="mt-3 btn btn-danger"
           style={{ backgroundColor: "rgb(226, 80, 31)", width: "180px" }}
           onClick={() => this.onClickOpenPayment()}
         >
           Verify
-        </button>
+        </button>:null}
       </div>
     );
   }
@@ -343,6 +357,7 @@ class PaymentProcess extends Component {
             </div>
             {this.state.totalSum<650?<p>Deliry is free on buing up to 650 nis.</p>:null}
             {this.deliveryAddress()}
+            {this.state.verify}
           </div>
         </div>
       </div>

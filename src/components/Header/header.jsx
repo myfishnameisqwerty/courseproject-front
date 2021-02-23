@@ -95,9 +95,11 @@ class Header extends Component {
                 Log In
               </button>
             </NavLink>
+            <NavLink to="/signUp">
             <button className="castomButtonHover ml-2 btn btn-outline-light my-2 my-sm-0">
               Sign Up
             </button>
+            </NavLink>
           </div>
           <div className="dropdown">
 

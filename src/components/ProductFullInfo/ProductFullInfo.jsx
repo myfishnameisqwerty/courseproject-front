@@ -4,23 +4,41 @@ import ProductShortDesc from "../ProductShortDesc/ProductShortDesc";
 import Stars from "../Stars/Stars";
 import ItemPrice from "../ItemPrice/ItemPrice";
 import "./ProductFullInfo.css";
+import axios from 'axios';
 
 class ProductFullInfo extends Component {
   constructor(props) {
     super(props);
-    this.product = this.props.itemsArray.filter(
-      (el) => el.id == this.props.match.params.id
-    )[0];
+    console.log(this.props)
+    // this.product = this.props.itemsArray.filter(
+    //   (el) => el.id == this.props.match.params.id
+    // )[0];
+    this.product = null
     this.state = {
-      price: this.product.price,
-      numToBuy: this.product.min,
+      price: 0,
+      numToBuy: 0,
       selectedVariation: 0,
       selectedAdditives: [],
       notations : ""
     };
   }
+
+  componentDidMount(){
+    const id = this.props.match.params.id
+    axios.get(`http://localhost:3000/itemsArray/${id}`).then((response) => {
+      this.product = response.data;
+      this.setState({
+        price: this.product.price,
+        numToBuy: this.product.min,
+        selectedVariation: 0,
+        selectedAdditives: [],
+        notations : ""
+      });
+    })
+  }
+
   render() {
-    return (
+    return (this.product) ? (
       <div className="mc">
         <Stars key={Math.random()} star={this.product.star} />
         <div className="productFullInfo mt-1 mb-5">
@@ -157,7 +175,7 @@ class ProductFullInfo extends Component {
           productState={this.state}
         />
       </div>
-    );
+    ) : (<div>Loading...</div>);
   }
   numberOfUnitsToBuy(value) {
     this.setState({ numToBuy: value });
