@@ -1,62 +1,111 @@
 import React, { Component } from "react";
-import './Login.css'
-class Login extends Component {
+import { Card, Modal, Form, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import auth from "../../auth";
+
+export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalShow: false,
+      result: [],
+    };
+  }
+  handleCloseModal() {
+    this.setState({ modalShow: false });
+    if (this.state.result[0]) this.props.history.push("/app");
   }
   render() {
     return (
-      <div style={desighn}>
-        
-          <form className="form">
-            <div className="pt-5 mb-5">
-              <label for="exampleInputEmail1" className="form-label">
-               <b>Email address</b> 
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-              
-            </div>
-            <div className="mb-3">
-              <label for="exampleInputPassword1" className="form-label">
-               <b>Password</b> 
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-              />
-            </div>
-            <div className="mb-3 form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                id="exampleCheck1"
-              />
-              <label className="form-check-label" for="exampleCheck1">
-                Remember password
-              </label>
-            </div>
-            <button id="login" type="submit" className="btn btn-danger">
-              Login
-            </button>
-            
-          </form>
-        
-      </div>
+      <Container
+        className="d-flex align-items-center justify-content-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <div style={{ width: "350px", minWidth: "350px" }}>
+          <Card>
+            <Card.Body>
+              <h2 className="text-center mb-4">Log In</h2>
+              <Form>
+                <Form.Group id="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    ref={(input) => (this.emailRef = input)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group id="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    ref={(input) => (this.passwordRef = input)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="Remember me"
+                    ref={(input) => (this.checkRef = input)}
+                  />
+                </Form.Group>
+                <Button
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    this.setState({
+                      modalShow: true,
+                      result: await auth.login(
+                        this.emailRef.value,
+                        this.passwordRef.value
+                      ),
+                    });
+                  }}
+                  variant="danger"
+                  className="w-100"
+                  type="submit"
+                  style={{ backgroundColor: "rgb(226, 80, 31)" }}
+                >
+                  Log In
+                </Button>
+                <h4 className="text-center mt-2">or</h4>
+                <Button
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await this.setState({
+                      modalShow: true,
+                      result: await auth.googleLogin(
+                        this.emailRef.value,
+                        this.passwordRef.value
+                      ),
+                    });
+                  }}
+                  variant="danger"
+                  className="w-100"
+                  type="submit"
+                  style={{ backgroundColor: "#dd4b39", borderColor: "#dd4b39", marginTop: "5px" }}
+                >
+                 <i className="fab fa-google" style={{float:'left', fontSize: "25px"}}> </i>Log In with google
+                </Button>
+                <Modal
+                  show={this.state.modalShow}
+                  onHide={() => this.handleCloseModal()}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Login status</Modal.Title>
+                  </Modal.Header>
+
+                  <Modal.Body>
+                    <p>{this.state.result[1]}</p>
+                  </Modal.Body>
+                </Modal>
+              </Form>
+            </Card.Body>
+          </Card>
+          <div className="w-100 text-center mt-2">
+            Already have an account? <Link to={"/signUp"}>Sign up</Link>
+          </div>
+        </div>
+      </Container>
     );
   }
 }
-const desighn = {
-
-  margin: "auto",
-  width: "350px",
-  // minHeight: "700px",
-};
-
-export default Login;

@@ -60,6 +60,7 @@ class MainPage extends Component {
             <Route path="/blog/:id" component={BlogFullInfo}/>
             <Route path="/contactUs" component={ContactUs}/>
             <Route path="/about" component={About}/>
+            <Route path="*" component={()=> "404 NOT FOUND"}/>
           </Switch>
         </div>
       </main>
