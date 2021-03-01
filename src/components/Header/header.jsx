@@ -2,23 +2,38 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./header.css";
 import PendingOrders from "../pendingOrders/pendingOrders";
+import {auth} from "../../firebase"
+import firebaseWrapper from "../../auth"
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       numberInBasket: 0,
       orders: null,
+      user: 'guest'
     };
     this.addcallSearchRef = this.addcallSearchRef.bind(this);
     this.callSearchRef = React.createRef();
   }
   componentDidMount() {
-    
-    const orders = JSON.parse(localStorage.getItem("homefood-ordersInProcess")) 
-    const numberInBasket = orders?orders.length:0
+    this.loadOrdersInProcess();
+    this.loadUser();
+  }
+  loadOrdersInProcess() {
+    const orders = JSON.parse(localStorage.getItem("homefood-ordersInProcess"));
+    const numberInBasket = orders ? orders.length : 0;
     this.setState({ numberInBasket, orders });
   }
+  loadUser(){
+    if (auth.currentUser){
+      const user = auth.currentUser.displayName?auth.currentUser.displayName:auth.currentUser.email
+      console.log("auth.currentUser.displayName", auth.currentUser.displayName);
+      this.setState({user})
+    }
+  }
+
   render() {
+    console.log(`+++++++++++++++++++++${auth.currentUser}++++++++++++++++++++++`);
     return (
       <header id="head">
         {/* <Router> */}
@@ -89,7 +104,23 @@ class Header extends Component {
               </form>
             </div>
           </div>
+          {auth.currentUser?
           <div className="loginOptions">
+          <NavLink to="/account/profile">
+          <button className="castomButtonHover ml-2 btn btn-outline-light my-2 my-sm-0">
+          {this.state.user}
+          </button>
+          </NavLink>
+          
+            <button className="text-danger btn btn-light my-2 my-sm-0 orangeColor"
+            onClick={()=>{firebaseWrapper.logout()
+            window.location.reload()}}>
+              Log out
+            </button>
+          
+          
+        </div>
+          :<div className="loginOptions">
             <NavLink to="/login">
               <button className="text-danger btn btn-light my-2 my-sm-0 orangeColor">
                 Log In
@@ -100,7 +131,7 @@ class Header extends Component {
               Sign Up
             </button>
             </NavLink>
-          </div>
+          </div>}
           <div className="dropdown">
 
           <NavLink to="/shopcart">

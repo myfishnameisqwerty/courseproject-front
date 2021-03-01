@@ -13,7 +13,7 @@ export default class Login extends Component {
   }
   handleCloseModal() {
     this.setState({ modalShow: false });
-    if (this.state.result[0]) this.props.history.push("/app");
+    if (this.state.result[0]) this.props.history.push("/account/profile");
   }
   render() {
     return (

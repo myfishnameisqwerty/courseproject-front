@@ -13,7 +13,8 @@ import ContactUs from "../contactUs/contactUs"
 import About from "../about/about"
 import axios from 'axios';
 import SignUp from '../signUp/signUp'
-
+import Profile from '../profile/profile'
+import {ProtectedRoute} from "../ProtectedRoute/protectedRout"
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
 
@@ -60,6 +61,7 @@ class MainPage extends Component {
             <Route path="/blog/:id" component={BlogFullInfo}/>
             <Route path="/contactUs" component={ContactUs}/>
             <Route path="/about" component={About}/>
+            <ProtectedRoute exact path="/account/profile" component={Profile}/>
             <Route path="*" component={()=> "404 NOT FOUND"}/>
           </Switch>
         </div>
