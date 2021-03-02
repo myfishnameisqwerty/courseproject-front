@@ -5,6 +5,8 @@ import MainPage from "./components/MainPage/mainPage.jsx";
 import Footer from "./components/Footer/footer.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios';
+import store from "./store/store"
+import {Provider} from "react-redux"
 
 class App extends Component {
   constructor() {
@@ -15,11 +17,14 @@ class App extends Component {
   }
   render() {
     return (
+      <Provider store={store}>
+
       <Router>
         <Header />
         <MainPage itemsArray={this.state.itemsArray}/>
         <Footer />
       </Router>
+      </Provider>
     );
   }
   componentDidMount(){

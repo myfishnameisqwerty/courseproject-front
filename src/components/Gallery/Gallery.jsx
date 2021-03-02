@@ -3,6 +3,8 @@ import Filter from "../Filter/Filter";
 import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
 import Sorter from "../Sorter/Sorter";
 import queryString from "query-string";
+import { connect } from "react-redux";
+import {fetchProducts} from "../../actions/productActions"
 
 class Gallery extends Component {
   constructor(props) {
@@ -17,13 +19,14 @@ class Gallery extends Component {
     
   }
   render() {
+    const {products} = this.props
     return (
       
       <React.Fragment>
         <div className="filterResults mt-2 float-right">
           <Sorter
             sortMapByInOrder={this.sortMapByInOrder}
-            itemsArray={this.props.itemsArray}
+            itemsArray={products}
           />
         </div>
         <div className="row">
@@ -46,6 +49,7 @@ class Gallery extends Component {
     );
   }
   componentDidMount(){
+    this.props.fetchProducts()
     this.initFilter()
   }
   componentDidUpdate(prevProps){
@@ -59,7 +63,7 @@ class Gallery extends Component {
     if (typeof search.q !== "undefined") {
       search = search.q.slice(1, search.q.length - 1).toLowerCase()
       if (!(search.split('').filter(ch => Number(ch)).length) && search!=""){
-        let filtred = this.props.itemsArray.filter((val) => {
+        let filtred = this.props.products.filter((val) => {
           if (val.name.toLowerCase().includes(search)) {
             return val;
           } else if (val.desc.toLowerCase().includes(search)) {
@@ -84,7 +88,7 @@ class Gallery extends Component {
   }
   filterArray(tags) {
     let tmpArr = [];
-    let arr = [...this.props.itemsArray];
+    let arr = [...this.props.products];
     for (const item of arr) {
       for (const tag of tags) {
         if (item["tags"].includes(tag)) {
@@ -102,4 +106,6 @@ class Gallery extends Component {
   }
 }
 
-export default Gallery;
+export default connect(state => ({
+  products: state.products.items
+}), {fetchProducts}) (Gallery);

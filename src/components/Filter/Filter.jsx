@@ -24,11 +24,6 @@ class Filter extends Component {
             <CheckBoxElement name="dairy" addTag={this.addTag}/>
             <CheckBoxElement name="salad" addTag={this.addTag}/>
             <CheckBoxElement name="sweets" addTag={this.addTag}/>
-            <label htmlFor="date" style={MenuColor}>
-              Available on
-            </label>
-            <br />
-            <input type="date" name="date" id="date" />
             <br />
             <br />
             <NavLink to="/catalog">
