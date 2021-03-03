@@ -16,6 +16,7 @@ import SignUp from '../signUp/signUp'
 import Profile from '../profile/profile'
 import {ProtectedRoute} from "../ProtectedRoute/protectedRout"
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import Dashboard from "../dashboard/dashboard";
 
 
 class MainPage extends Component {
@@ -61,6 +62,7 @@ class MainPage extends Component {
             <Route path="/blog/:id" component={BlogFullInfo}/>
             <Route path="/contactUs" component={ContactUs}/>
             <Route path="/about" component={About}/>
+            <Route path="/dashboard" component={Dashboard}/>
             <ProtectedRoute exact path="/account/profile" component={Profile}/>
             <Route path="*" component={()=> "404 NOT FOUND"}/>
           </Switch>

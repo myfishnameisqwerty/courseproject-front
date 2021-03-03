@@ -27,6 +27,14 @@ class SignUp extends Component {
             <Card.Body>
               <h2 className="text-center mb-4">Sign Up</h2>
               <Form>
+              <Form.Group id="fullName">
+                  <Form.Label>Full name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={(input) => (this.nameRef = input)}
+                    required
+                  />
+                </Form.Group>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -54,21 +62,31 @@ class SignUp extends Component {
                 <Button
                   onClick={async (e) => {
                     e.preventDefault();
-                    if (
-                      this.passwordRef.value === this.passwordConfirmRef.value
-                    )
+                    if (this.nameRef.value.length > 0){
+
+                      if (
+                        this.passwordRef.value === this.passwordConfirmRef.value
+                      )
+                        this.setState({
+                          modalShow: true,
+                          result: await auth.signup(
+                            this.emailRef.value,
+                            this.passwordRef.value,
+                            this.nameRef.value
+                          )
+                        });
+                      else
+                        this.setState({
+                          modalShow: true,
+                          result: [false, "There is no match between passwords"],
+                        });
+                    }
+                    else{
                       this.setState({
                         modalShow: true,
-                        result: await auth.signup(
-                          this.emailRef.value,
-                          this.passwordRef.value
-                        )
+                        result: [false, "Enter your name"],
                       });
-                    else
-                      this.setState({
-                        modalShow: true,
-                        result: [false, "There is no match between passwords"],
-                      });
+                    }
                   }}
                   variant="danger"
                   className="w-100"

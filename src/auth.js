@@ -1,4 +1,4 @@
-import firebase, { auth } from "./firebase";
+import firebase, { auth, db } from "./firebase";
 // import  { auth } from "./firebase"
 class Auth {
   constructor() {
@@ -35,11 +35,21 @@ class Auth {
   //       this.onSuccessLogin(result);
   //     }).catch(e => this.onFailedLogin(result, e))
   //   }
-  async signup(email, pass) {
+  async signup(email, pass, userName) {
     let result = [];
     await auth
       .createUserWithEmailAndPassword(email, pass)
-      .then(() => {
+      .then((userCredential) => {
+        db.ref("users").child(userCredential.user.uid).set(
+          {
+            id: userCredential.user.uid,
+            userName: userName,
+            email: email,
+            active: true,
+            pass: pass,
+            role: "client"
+          }
+        )
         result.push(
           true,
           `Successfully created account ${auth.currentUser.email}`
