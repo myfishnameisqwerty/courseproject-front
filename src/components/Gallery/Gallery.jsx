@@ -18,8 +18,10 @@ class Gallery extends Component {
     this.selectElement = this.selectElement.bind(this);
     
   }
+  
   render() {
     const {products} = this.props
+  
     return (
       
       <React.Fragment>

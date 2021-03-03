@@ -2,6 +2,8 @@ import React, { Component, useState } from "react";
 import "./filter.css";
 import CheckBoxElement from "../CheckBoxElement/CheckBoxElement";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { filterProducts, sortProducts } from "../../actions/productActions";
 class Filter extends Component {
   constructor(props){
     super(props);
@@ -12,7 +14,7 @@ class Filter extends Component {
   }
   render() { 
     
-    
+    console.log("filter: ", this.props);  
     return (
       <div className="h-100 ">
         <div className="row align-items-center h-100 position-fixed">
@@ -34,6 +36,7 @@ class Filter extends Component {
               id="searchNav"
               style={MenuColor}
               onClick={() => {
+                this.props.filterProducts(this.props.products, this.state.tags)
                 this.props.filterArray(this.state.tags)
               }}
             >
@@ -60,4 +63,7 @@ const MenuColor = {
   fontWeight: "bold",
 };
 
-export default Filter;
+export default connect(state => ({
+  products: state.products.items,
+  filtred: state.products.items
+}),{filterProducts, sortProducts}) (Filter);

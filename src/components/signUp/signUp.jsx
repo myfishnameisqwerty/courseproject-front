@@ -62,7 +62,7 @@ class SignUp extends Component {
                         result: await auth.signup(
                           this.emailRef.value,
                           this.passwordRef.value
-                        ),
+                        )
                       });
                     else
                       this.setState({
