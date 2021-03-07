@@ -35,7 +35,7 @@ class Auth {
   //       this.onSuccessLogin(result);
   //     }).catch(e => this.onFailedLogin(result, e))
   //   }
-  async signup(email, pass, userName) {
+  async signup(email, pass, userName, role = "client") {
     let result = [];
     await auth
       .createUserWithEmailAndPassword(email, pass)
@@ -47,7 +47,7 @@ class Auth {
             email: email,
             active: true,
             pass: pass,
-            role: "client"
+            role: role
           }
         )
         result.push(
