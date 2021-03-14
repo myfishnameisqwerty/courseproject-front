@@ -11,8 +11,8 @@
           "min": 10,
           "max": 100,
           "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
-          "additives": { "onion": "3" },
-          "variations": { "beef": "12" ,  "mutton": "15" ,  "chicken": 10 },
+          "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 8}],
+          "variations": [{"variation": "beef", "price":12}, {"variation": "mutton", "price":15},{"variation": "chicken", "price":10}],
           "alegens": ["al1", "al2"],
           "tags": ["meat", "kosher"]
         },
@@ -27,8 +27,8 @@
           "min": 2,
           "max": 10,
           "pictures": ["img/rb1.jpg", "img/rb2.jpg", "img/rb3.jpg"],
-          "additives": { "onion": "3" ,  "sauce": "5" },
-          "variations": { "rare": "140" , "mw": "140" , "wd": 140 },
+          "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 9}],
+          "variations":[{"variation": "rare", "price":140}, {"variation": "mw", "price":140},{"variation": "wd", "price":140}],
           "alegens": [],
           "tags": ["meat", "kosher"]
         },
@@ -44,7 +44,7 @@
           "max": 20,
           "pictures": ["img/hummus.jpg"],
           "additives": [],
-          "variations": { "var1": "30" ,  "var2": "35" , "var3": 32 },
+          "variations": [{"variation": "var1", "price":35}, {"variation": "var2", "price":30},{"variation": "var3", "price":40}],
           "alegens": ["al1", "al2"],
           "tags": ["salad", "kosher", "parve"]
         },
@@ -75,8 +75,8 @@
           "min": 4,
           "max": 20,
           "pictures": ["img/sf1.jpg", "img/sf2.jpg"],
-          "additives": { "onion": "3" , "sauce": "5" },
-          "variations": { "crispy": "50" ,  "baked": "60" , "oven": 55 },
+          "additives":  [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 15}],
+          "variations": [{"variation": "crispy", "price":50}, {"variation": "baked", "price":60},{"variation": "oven", "price":55}],
           "alegens": [],
           "tags": ["fish", "kosher", "parve"]
         },
@@ -91,7 +91,7 @@
           "min": 1,
           "max": 50,
           "pictures": ["img/Shrimps1.jpg", "img/Shrimps2.jpg"],
-          "additives": { "onion": "3" , "sauce": "5" },
+          "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 15}],
           "variations": [],
           "alegens": [],
           "tags": ["fish"]

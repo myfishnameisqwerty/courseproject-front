@@ -8,7 +8,6 @@ class ShopCart extends Component {
     this.state = {
       orders: [],
       totalSum: 0,
-      totalShip: 0,
       selectAll: true,
     };
     this.removeOrder = this.removeOrder.bind(this);
@@ -28,11 +27,10 @@ class ShopCart extends Component {
     selectedOrders.push(i)
     localStorage.setItem("homefood-selectedOrdersIndexes", JSON.stringify(selectedOrders))
   }
-  updateTotals(totalSum, totalShip) {
+  updateTotals(totalSum) {
     totalSum += this.state.totalSum;
-    totalShip += this.state.totalShip;
     localStorage.setItem("homefood-selectedTotal", totalSum)
-    this.setState({ totalSum, totalShip });
+    this.setState({ totalSum,  });
   }
   removeOrder(orderId) {
     let orders = [...this.state.orders];
@@ -84,7 +82,6 @@ class ShopCart extends Component {
         >
           <OrderSummary
             totalSum={this.state.totalSum}
-            totalShip={this.state.totalShip}
             orders={this.state.orders}
           />
         </div>

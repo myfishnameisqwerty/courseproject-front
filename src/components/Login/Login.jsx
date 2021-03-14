@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Card, Modal, Form, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import auth from "../../auth";
+import authentication from "../../auth";
+import { connect } from 'react-redux';
+import { updateUserNavbar } from '../../actions/actions';
+import { auth, db } from "../../firebase";
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,10 +22,9 @@ export default class Login extends Component {
     return (
       <Container
         className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
       >
         <div style={{ width: "350px", minWidth: "350px" }}>
-          <Card>
+          <Card className="mt-5">
             <Card.Body>
               <h2 className="text-center mb-4">Log In</h2>
               <Form>
@@ -52,13 +54,14 @@ export default class Login extends Component {
                 <Button
                   onClick={async (e) => {
                     e.preventDefault();
-                    this.setState({
+                    await this.setState({
                       modalShow: true,
-                      result: await auth.login(
+                      result: await authentication.login(
                         this.emailRef.value,
                         this.passwordRef.value
                       ),
                     });
+                    // this.props.updateUserNavbar(auth.currentUser)
                   }}
                   variant="danger"
                   className="w-100"
@@ -73,7 +76,7 @@ export default class Login extends Component {
                     e.preventDefault();
                     await this.setState({
                       modalShow: true,
-                      result: await auth.googleLogin(
+                      result: await authentication.googleLogin(
                         this.emailRef.value,
                         this.passwordRef.value
                       ),
@@ -109,3 +112,6 @@ export default class Login extends Component {
     );
   }
 }
+export default connect(state => ({
+  user: state.global.user
+}), {updateUserNavbar}) (Login);

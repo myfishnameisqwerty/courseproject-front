@@ -38,3 +38,11 @@ export const sortProducts = (filtredProducts, by, order) => dispatch =>{
         }
     })
 }
+export const updateUserNavbar = (name, role) => dispatch => {
+    dispatch({
+        type: types.UPDATE_USER_NAVBAR,
+        payload: {
+            name, role
+        }
+    })
+}

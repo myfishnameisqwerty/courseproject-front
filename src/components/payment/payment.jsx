@@ -2,9 +2,10 @@ import DateTimePicker from "react-datetime-picker";
 import React, { Component } from "react";
 import PendingOrders from "../pendingOrders/pendingOrders";
 import { NavLink } from "react-router-dom";
-import PayPal from "../PalPal/paypal"
+import PayPal from "../PalPal/paypal";
 import "./payment.css";
-import { PayPalButton } from 'react-paypal-button'
+import { PayPalButton } from "react-paypal-button";
+import authentication from "../../auth"
 
 class PaymentProcess extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class PaymentProcess extends Component {
       delivery: false,
       fields: { name: "", tel: "", email: "", spam: true },
       address: { city: "", street: "", appartment: "" },
-      verify: null
+      verify: null,
     };
   }
   componentDidMount() {
@@ -33,13 +34,13 @@ class PaymentProcess extends Component {
   }
   changeOrderDate(date) {
     let inMinRange = new Date();
-    inMinRange.setDate(inMinRange.getDate() + 3)
+    inMinRange.setDate(inMinRange.getDate() + 3);
     if (date <= this.state.orderDate) {
       if (date < inMinRange) date = inMinRange;
       this.setState({
         orderDate: date,
         urgent: this.state.totalSum * 0.3,
-        verify: null
+        verify: null,
       });
     } else this.setState({ orderDate: date, urgent: 0, verify: null });
   }
@@ -62,7 +63,7 @@ class PaymentProcess extends Component {
     this.setState({ selectedOrders });
   }
   onChangeRadioDelivery(event) {
-    this.setState({verify:null})
+    this.setState({ verify: null });
     event.target.value === "pickup"
       ? this.setState({ deliveryPrice: 0, delivery: false })
       : this.state.totalSum < 650
@@ -126,23 +127,37 @@ class PaymentProcess extends Component {
   }
   onClickOpenPayment() {
     if (this.verifyInput()) {
-      const state = this.state
+      const state = this.state;
       const paypalOptions = {
-        clientId: state.fields.email,
-        intent: 'capture'
-      }
+        clientId: "AV_v3Evigz0MAjnMZp5RTdIdYEfvlIwpeAStPbUDXCQHkl6AuGcDsoh03lZuubSnvaqvmqezY0LQog-9&currency=ILS",
+        intent: "capture",
+      };
       const buttonStyles = {
-        layout: 'vertical',
-        shape: 'rect',
-      }
-        this.setState({verify: <PayPalButton paypalOptions={paypalOptions}
-          buttonStyles={buttonStyles} amount={state.totalSum+state.deliveryPrice+state.urgent}/>})
-        
+        layout: "vertical",
+        shape: "rect",
+      };
+      this.setState({
+        verify: (
+          <PayPalButton
+            paypalOptions={paypalOptions}
+            buttonStyles={buttonStyles}
+            amount={state.totalSum + state.deliveryPrice + state.urgent}
+            onPaymentSuccess={(resp)=> this.paymetApproved(resp)}
+          />
+        ),
+      });
     }
   }
+  paymetApproved(resp) {
+    console.log("got it: ", resp);
+    authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.state.totalSum, this.state.orderDate)
+    alert("we got it")
+    window.location.href = '/home'
+  }
+
   deliveryAddress() {
     return (
-      <div className='mt-4'>
+      <div className="mt-4">
         <input
           className="mb-2"
           ref={(input) => {
@@ -261,13 +276,15 @@ class PaymentProcess extends Component {
           </div>
         ) : null}
         <br />
-        {this.state.verify===null?<button
-          className="mt-3 btn btn-danger"
-          style={{ backgroundColor: "rgb(226, 80, 31)", width: "180px" }}
-          onClick={() => this.onClickOpenPayment()}
-        >
-          Verify
-        </button>:null}
+        {this.state.verify === null ? (
+          <button
+            className="mt-3 btn btn-danger"
+            style={{ backgroundColor: "rgb(226, 80, 31)", width: "180px" }}
+            onClick={() => this.onClickOpenPayment()}
+          >
+            Verify
+          </button>
+        ) : null}
       </div>
     );
   }
@@ -337,7 +354,8 @@ class PaymentProcess extends Component {
               </p>
             </div>
             <div onClick={(event) => this.onChangeRadioDelivery(event)}>
-              Select delivery<br/> 
+              Select delivery
+              <br />
               <input
                 type="radio"
                 name="delivery"
@@ -353,9 +371,11 @@ class PaymentProcess extends Component {
                 id="delivery"
                 value="delivery"
               />{" "}
-              Deliver me it - { this.state.totalSum>=650?'free':'100₪'}
+              Deliver me it - {this.state.totalSum >= 650 ? "free" : "100₪"}
             </div>
-            {this.state.totalSum<650?<p>Deliry is free on buing up to 650 nis.</p>:null}
+            {this.state.totalSum < 650 ? (
+              <p>Deliry is free on buing up to 650 nis.</p>
+            ) : null}
             {this.deliveryAddress()}
             {this.state.verify}
           </div>

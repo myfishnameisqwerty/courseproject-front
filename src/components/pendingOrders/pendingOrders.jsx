@@ -16,15 +16,15 @@ class PendingOrders extends Component {
   updateTolats(state){
     if (state){  
       this.props.updateTotals(
-        this.state.unitPrice * this.props.orderInfo.quantity,
-        this.props.fullItemInfo.shipping
+        this.state.unitPrice * this.props.orderInfo.quantity
+        
       );
     }
     else{
 
       this.props.updateTotals(
-        this.state.unitPrice * this.props.orderInfo.quantity * -1,
-        this.props.fullItemInfo.shipping * -1
+        this.state.unitPrice * this.props.orderInfo.quantity * -1
+        
       );
     }
   }
@@ -90,18 +90,14 @@ class PendingOrders extends Component {
               <span>
                 <b>Total price:</b>
               </span>
-              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪ +${
-                fullItemInfo.shipping
-              }₪(shipping)`}</span>
+              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪`}</span>
             </div>
           </div>
           <div className="shortInfo">
               <div>
                 <b>Total price:</b>
               </div>
-              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪ +${
-                fullItemInfo.shipping
-              }₪(shipping)`}</span>
+              <span>{` ${this.state.unitPrice * orderInfo.quantity}₪`}</span>
             </div>
 
           <div className="fullInfo">
@@ -131,10 +127,10 @@ class PendingOrders extends Component {
     const orderedProduct = this.props.fullItemInfo;
     let unitPrice = orderedProduct.price;
     if (variation !== 0)
-      unitPrice = Number(orderedProduct.variations[variation]);
+      unitPrice = orderedProduct.variations.filter(v => v.variation === variation)[0].price
     if (typeof orderAdditives[0] !== "undefined") {
       orderAdditives.forEach(
-        (el) => (unitPrice += Number(orderedProduct.additives[el.toString()]))
+        (el) => (unitPrice += Number(orderedProduct.additives.filter(ad => ad.additive === el)[0].price))
       );
     }
 

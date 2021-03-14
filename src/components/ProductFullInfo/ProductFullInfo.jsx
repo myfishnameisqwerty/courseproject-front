@@ -19,6 +19,7 @@ class ProductFullInfo extends Component {
       numToBuy: 0,
       selectedVariation: 0,
       selectedAdditives: [],
+      additivesPrice: 0,
       notations : ""
     };
   }
@@ -51,11 +52,11 @@ class ProductFullInfo extends Component {
           desc={this.product.desc}
           min={this.product.min}
           max={this.product.max}
-          price={this.state.price}
+          price={this.state.price+this.state.additivesPrice}
         />
 
         <div className="mt-5  d-flex flex-wrap  justify-content-between">
-          {Object.keys(this.product.variations).length !== 0 ? (
+          {this.product.variations.length !== 0 ? (
             <div className="variations">
               <p>
                 <b>Variations:</b>
@@ -64,28 +65,20 @@ class ProductFullInfo extends Component {
                 name="variations"
                 id="variations"
                 onChange={(e) => {
-                  let price = this.state.price;
-                  price = Number(
-                    this.product.variations[JSON.parse(e.target.value)]
-                  );
-                  this.state.selectedAdditives.forEach((additiv) => {
-                    price += Number(this.product.additives[additiv]);
-                    
-                  });
-                  
+                  const variation = JSON.parse(e.target.value)
                   this.setState({
-                    price,
-                    selectedVariation: JSON.parse(e.target.value),
+                    price:variation.price,
+                    selectedVariation: variation.variation,
                   });
                 }}
               >
                 <option disabled selected hidden>
                   Choose variation
                 </option>
-                {Object.keys(this.product.variations).map((item) => {
+                {(this.product.variations).map((item) => {
                   return (
                     <option value={JSON.stringify(item)}>
-                      {`${item} - ${this.product.variations[item]}₪`}
+                      {`${item.variation} - ${item.price}₪`}
                     </option>
                   );
                 })}
@@ -94,12 +87,12 @@ class ProductFullInfo extends Component {
           ) : (
             <React.Fragment />
           )}
-          {Object.keys(this.product.additives).length !== 0 ? (
+          {this.product.additives.length !== 0 ? (
             <div className="additives">
               <p>
                 <b>Additives:</b>
               </p>
-              {Object.keys(this.product.additives).map((item) => {
+              {this.product.additives.map((item) => {
                 return (
                   <div>
                     <input
@@ -112,12 +105,12 @@ class ProductFullInfo extends Component {
                           ...this.state.selectedAdditives,
                         ];
                         if (event.target.checked === true) {
-                          selectedAdditives.push(item);
+                          selectedAdditives.push(item.additive);
 
                           this.setState({
-                            price:
-                              this.state.price +
-                              Number(this.product.additives[item]),
+                            additivesPrice:
+                              this.state.additivesPrice +
+                              Number(item.price),
                             selectedAdditives,
                           });
                         } else {
@@ -127,16 +120,16 @@ class ProductFullInfo extends Component {
                           );
 
                           this.setState({
-                            price:
-                              this.state.price -
-                              Number(this.product.additives[item]),
+                            additivesPrice:
+                              this.state.additivesPrice -
+                              Number(item.price),
                             selectedAdditives,
                           });
                         }
                       }}
                     />
                     <label for={JSON.stringify(item)} className="ml-1">
-                      {`${item} - ${this.product.additives[item]}₪`}
+                      {`${item.additive} - ${item.price}₪`}
                     </label>
                   </div>
                 );

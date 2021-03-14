@@ -7,6 +7,13 @@ header{
     top: 0;
     z-index: 1;
 }
+#dropdown-basic{
+    border: none;
+    background: none;
+}
+#profile:active{
+    background: none;
+}
 .dropdown {
     position: relative;
     display: inline-block;

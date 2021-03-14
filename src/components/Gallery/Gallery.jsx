@@ -4,7 +4,7 @@ import GalleryDisplay from "../GalleryDisplay/GalleryDisplay";
 import Sorter from "../Sorter/Sorter";
 import queryString from "query-string";
 import { connect } from "react-redux";
-import {fetchProducts} from "../../actions/productActions"
+import {fetchProducts} from "../../actions/actions"
 
 class Gallery extends Component {
   constructor(props) {
@@ -109,5 +109,5 @@ class Gallery extends Component {
 }
 
 export default connect(state => ({
-  products: state.products.items
+  products: state.global.items
 }), {fetchProducts}) (Gallery);

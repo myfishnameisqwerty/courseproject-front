@@ -47,7 +47,7 @@ function ItemPrice({ numberOfUnitsToBuy, element, productState }) {
           ></i>
         </div>
         <p className="pb-5 text-secondary">
-          <b>Total price: {productState.price * productState.numToBuy}₪</b>
+          <b>Total price: {(productState.price+productState.additivesPrice) * productState.numToBuy}₪</b>
         </p>
       </div>
     </React.Fragment>

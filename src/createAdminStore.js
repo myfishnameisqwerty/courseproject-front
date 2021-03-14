@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk'
-import {productsReducer} from './reducers/productsReducers'
+import {reducers} from './reducers/reducers'
 import { all, fork } from 'redux-saga/effects';
 import {
     adminReducer,
@@ -19,7 +19,7 @@ export default ({
     const reducer = combineReducers({
         admin: adminReducer,
         router: connectRouter(history),
-        products: productsReducer
+        products: reducers
         // add your own reducers here
     });
     const resettableAppReducer = (state, action) =>

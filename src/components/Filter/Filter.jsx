@@ -3,7 +3,7 @@ import "./filter.css";
 import CheckBoxElement from "../CheckBoxElement/CheckBoxElement";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { filterProducts, sortProducts } from "../../actions/productActions";
+import { filterProducts, sortProducts } from "../../actions/actions";
 class Filter extends Component {
   constructor(props){
     super(props);
@@ -64,6 +64,6 @@ const MenuColor = {
 };
 
 export default connect(state => ({
-  products: state.products.items,
-  filtred: state.products.items
+  products: state.global.items,
+  filtred: state.global.items
 }),{filterProducts, sortProducts}) (Filter);

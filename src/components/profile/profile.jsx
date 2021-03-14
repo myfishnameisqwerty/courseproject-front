@@ -14,15 +14,15 @@ export default class Profile extends Component {
   }
   componentDidMount() {
     this.setState({
-      fname:
-        auth.currentUser.displayName.split(" ")[0] !== "undefined"
-          ? auth.currentUser.displayName.split(" ")[0]
-          : "",
-      lname:
-        auth.currentUser.displayName.split(" ").slice(1)[0] !== "undefined"
-          ? auth.currentUser.displayName.split(" ").slice(1)[0]
-          : "",
-        city:auth.currentUser.city
+      // fname:
+      //   auth.currentUser.displayName.split(" ")[0] !== "undefined"
+      //     ? auth.currentUser.displayName.split(" ")[0]
+      //     : "",
+      // lname:
+      //   auth.currentUser.displayName.split(" ").slice(1)[0] !== "undefined"
+      //     ? auth.currentUser.displayName.split(" ").slice(1)[0]
+      //     : "",
+      //   city:auth.currentUser.city
     });
 
   }

@@ -20,10 +20,10 @@ class SignUp extends Component {
     return (
       <Container
         className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
+        
       >
         <div style={{ width: "350px", minWidth: "350px" }}>
-          <Card>
+          <Card className="mt-5">
             <Card.Body>
               <h2 className="text-center mb-4">Sign Up</h2>
               <Form>
