@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import authentication from "../../auth";
 import { connect } from 'react-redux';
 import { updateUserNavbar } from '../../actions/actions';
-import { auth, db } from "../../firebase";
+
 
 class Login extends Component {
   constructor(props) {

@@ -9,7 +9,7 @@ import axios from 'axios';
 class ProductFullInfo extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
+    
     // this.product = this.props.itemsArray.filter(
     //   (el) => el.id == this.props.match.params.id
     // )[0];
@@ -41,7 +41,7 @@ class ProductFullInfo extends Component {
   render() {
     return (this.product) ? (
       <div className="mc">
-        <Stars key={Math.random()} star={this.product.star} />
+        <Stars star={this.product.star} />
         <div className="productFullInfo mt-1 mb-5">
           <Carousel key={Math.random()} pictures={this.product.pictures} />
         </div>
@@ -99,7 +99,7 @@ class ProductFullInfo extends Component {
                       type="checkbox"
                       className="btn-check"
                       id={JSON.stringify(item)}
-                      autocomplete="off"
+                      autoComplete="off"
                       onChange={(event) => {
                         let selectedAdditives = [
                           ...this.state.selectedAdditives,
@@ -128,7 +128,7 @@ class ProductFullInfo extends Component {
                         }
                       }}
                     />
-                    <label for={JSON.stringify(item)} className="ml-1">
+                    <label htmlFor={JSON.stringify(item)} className="ml-1">
                       {`${item.additive} - ${item.price}₪`}
                     </label>
                   </div>

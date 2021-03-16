@@ -25,16 +25,16 @@ class Header extends Component {
         let data;
 
         await db.ref().on("value", async (snapshot) => {
-          console.log("snapshot", snapshot);
+          
           data = await snapshot.val().users;
 
           data = await data[user.uid];
 
           const name = (await data.userName) || data.email;
           const role = await data.role;
-          // console.log("data2: ", name);
+          
           this.props.updateUserNavbar(name, role);
-          console.log("up: ", this.props.userName, this.props.userRole);
+          
         });
       }
     });
@@ -46,7 +46,7 @@ class Header extends Component {
   }
 
   render() {
-    console.log("rerander");
+    
     return (
       <header id="head">
         {/* <Router> */}

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "./filter.css";
 import CheckBoxElement from "../CheckBoxElement/CheckBoxElement";
 import { NavLink } from "react-router-dom";
@@ -14,7 +14,7 @@ class Filter extends Component {
   }
   render() { 
     
-    console.log("filter: ", this.props);  
+    
     return (
       <div className="h-100 ">
         <div className="row align-items-center h-100 position-fixed">

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Card, Modal, Form, Button, Container, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import firebase, { auth } from "../../firebase";
+import { Card,  Form, Button,  Col } from "react-bootstrap";
+import { auth } from "../../firebase";
 
 export default class Profile extends Component {
   constructor(props) {

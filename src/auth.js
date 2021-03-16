@@ -79,11 +79,12 @@ class Auth {
     
     payedOrders.forEach(el => {
       const order = el[0].orderInfo;
-    
-      db.ref("orders").child(order.orderId).set(
+      const {orderId, ...rest} = order;
+      console.log(orderId, rest);
+      db.ref("orders").child(orderId).set(
         {
-          id: order.orderId,
-          orderInfo : {productId: el[0].fullItemInfo.id, quantity: order.quantity, variation: order.variation, additives: order.additives, notations: order.notations},
+          id: orderId,
+          orderInfo : rest,
           user:this.isAuthenticated()?auth.currentUser.uid:"anonymous",
           orderDate:JSON.stringify(orderDate),
           customer,

@@ -21,7 +21,7 @@ class OrderSummary extends Component {
       else{
 
         this.setState({showMadal: true})
-        console.log(this.state.showMadal);
+        
       }
   }
   render() {

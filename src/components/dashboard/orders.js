@@ -1,12 +1,10 @@
 import * as React from "react";
-import { db } from "../../firebase";
-import RichTextInput from "ra-input-rich-text";
+import { Form } from "react-final-form";
 import {
     SimpleShowLayout,
   ExportButton,
   CreateButton,
   RefreshButton,
-  SimpleFormIterator,
   EditButton,
   Filter,
   Edit,
@@ -18,12 +16,8 @@ import {
   Datagrid,
   TextField,
   EmailField,
-  DeleteButton,
-  Create,
-  ArrayInput,
-  DateField,
-  SelectField,
   ArrayField,
+  SingleFieldList,
   Show,
   ShowButton,
 } from "react-admin";
@@ -43,25 +37,30 @@ const OrdersFilter = (props) => (
   </Filter>
 );
 export  const ShowOrder = (props) => (
+  
     <Show {...props}>
+      
         <SimpleShowLayout>
+
+        {console.log(props.id)}
             <TextField source="status"/>
             <h4>About order</h4>
             <TextField source="orderInfo.productId" />
             <TextField source="orderInfo.quantity" />
             <TextField source="orderInfo.variation" />
-            {/* <ArrayInput source="orderInfo.additives">
-        <SimpleFormIterator>
-          <TextInput label="Alergen" />
-        </SimpleFormIterator>
-      </ArrayInput> */}
+            
+            {/* <ArrayField source="orderInfo.additives">
+        <SingleFieldList>
+          <TextInput label="additives" />
+        </SingleFieldList>
+      </ArrayField> */}
             <TextField
         multiline
         source="orderInfo.notations"
         
         style={{ width: "100%" }}
       />
-            <DateField label="Order Date" source="orderDate" />
+            <TextField label="Order Date" source="orderDate" />
             <h4>Customer</h4>
             <EmailField source="customer.email" />
             <TextField source="customer.name" />

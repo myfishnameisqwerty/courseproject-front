@@ -10,7 +10,6 @@ import {
   ExportButton,
   CreateButton,
   RefreshButton,
-  BooleanInput,
   EditButton,
   Filter,
   Edit,
@@ -21,7 +20,6 @@ import {
   List,
   Datagrid,
   TextField,
-  EmailField,
   DeleteButton,
   Create,
   ImageInput,
@@ -53,7 +51,7 @@ export const PostCreate = (props) => {
         today.getMonth() + 1
       }/${today.getDate()}/${today.getFullYear()}`;
       const id = Math.floor(Math.random() * Date.now());
-      console.log(value);
+      
       db.ref("posts/" + id).set({
         createdAt,
         id,

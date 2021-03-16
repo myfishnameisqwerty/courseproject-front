@@ -20,7 +20,7 @@ class About extends Component {
                 <div className='aboutPictures d-flex flex-wrap justify-content-around'>
                     {pictures.map(pic => <img className="p-2" src={pic} key={Math.random()} style={{height:"15vh"}}/>)}
                 </div>
-                <iframe 
+                <iframe title="our video" 
 src="https://www.youtube.com/embed/boTfxLdDv9I" style={{height:'360px', width:'780px', margin:'auto'}}>
 </iframe>
             </div>

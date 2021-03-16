@@ -107,7 +107,7 @@ export const ProductCreate = (props) => {
         today.getMonth() + 1
       }/${today.getDate()}/${today.getFullYear()}`;
       const id = Math.floor(Math.random() * Date.now());
-      console.log(value);
+      
       db.ref("products/" + id).set({
         createdAt,
         id,

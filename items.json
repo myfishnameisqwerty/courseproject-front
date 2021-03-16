@@ -1,0 +1,92 @@
+{"itemsArray": [
+    {
+      "id": 1,
+      "name": "Chebureki",
+      "desc":
+        "Cheburek is made from unleavened dough filled with ground meat, onions and spices, fried in oil. It is a common street food in Russia.",
+      "star": 5,
+      "price": 10,
+      "min": 10,
+      "max": 100,
+      "pictures": ["img/cheb1.jpg", "img/cheb2.jpg", "img/cheb3.jpg"],
+      "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 8}],
+      "variations": [{"variation": "beef", "price":12}, {"variation": "mutton", "price":15},{"variation": "chicken", "price":10}],
+      "alegens": ["al1", "al2"],
+      "tags": ["meat", "kosher"]
+    },
+    {
+      "id": 2,
+      "name": "Roast beef",
+      "desc":
+        "Roast beef is a traditional English dish of beef which is roasted. Essentially prepared as a main meal, the leftovers are often used in sandwiches and sometimes are used to make hash.",
+      "star": 3,
+      "price": 140,
+      "min": 2,
+      "max": 10,
+      "pictures": ["img/rb1.jpg", "img/rb2.jpg", "img/rb3.jpg"],
+      "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 9}],
+      "variations":[{"variation": "rare", "price":140}, {"variation": "mw", "price":140},{"variation": "wd", "price":140}],
+      "alegens": [],
+      "tags": ["meat", "kosher"]
+    },
+    {
+      "id": 3,
+      "name": "Humus",
+      "desc":
+        "Hummus is a Middle Eastern dip, spread, or savory dish made from cooked, mashed chickpeas blended with tahini, lemon juice, and garlic.",
+      "star": 4,
+      "price": 30,
+      "min": 5,
+      "max": 20,
+      "pictures": ["img/hummus.jpg"],
+      "additives": [],
+      "variations": [{"variation": "var1", "price":35}, {"variation": "var2", "price":30},{"variation": "var3", "price":40}],
+      "alegens": ["al1", "al2"],
+      "tags": ["salad", "kosher", "parve"]
+    },
+    {
+      "id": 4,
+      "name": "Napoleon",
+      "desc":
+        "Description. Napoleon Cake is a classic Russian cakes, made of very thin and flaky puff pastry cake layers and a smooth, rich and luscious pastry cream in between the layers.",
+      "star": 4,
+      "price": 90,
+      "min": 1,
+      "max": 3,
+      "pictures": ["img/np1.jpg", "img/np2.jpg"],
+      "additives": [],
+      "variations": [],
+      "alegens": ["milk"],
+      "tags": ["sweets", "dairy", "kosher"]
+    },
+    {
+      "id": 5,
+      "name": "Salmon",
+      "desc":
+        "If you pan-fry fish at home in a tablespoon of olive oil, most of the fat is healthy unsaturated fat, and you don't get any trans fat. ",
+      "star": 5,
+      "price": 50,
+      "min": 4,
+      "max": 20,
+      "pictures": ["img/sf1.jpg", "img/sf2.jpg"],
+      "additives":  [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 15}],
+      "variations": [{"variation": "crispy", "price":50}, {"variation": "baked", "price":60},{"variation": "oven", "price":55}],
+      "alegens": [],
+      "tags": ["fish", "kosher", "parve"]
+    },
+    {
+      "id": 6,
+      "name": "Shrimps",
+      "desc":
+        "As with other seafood, shrimp is high in protein but low in food energy. A shrimp-based meal is also a significant source of cholesterol.",
+      "star": 4,
+      "price": 40,
+      "min": 1,
+      "max": 50,
+      "pictures": ["img/Shrimps1.jpg", "img/Shrimps2.jpg"],
+      "additives": [{"additive" : "ad1", "price": 5}, {"additive" : "ad2", "price": 15}],
+      "variations": [],
+      "alegens": [],
+      "tags": ["fish"]
+    }
+  ]}

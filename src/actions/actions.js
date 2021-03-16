@@ -20,7 +20,7 @@ export const filterProducts = (products, tags) => dispatch =>{
                     if (product.tags.indexOf(tag)>=0)
                         return product
                 }
-                console.log(products)
+                
             })
             
         }

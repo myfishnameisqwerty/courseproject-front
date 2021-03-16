@@ -2,7 +2,6 @@ import DateTimePicker from "react-datetime-picker";
 import React, { Component } from "react";
 import PendingOrders from "../pendingOrders/pendingOrders";
 import { NavLink } from "react-router-dom";
-import PayPal from "../PalPal/paypal";
 import "./payment.css";
 import { PayPalButton } from "react-paypal-button";
 import authentication from "../../auth"
@@ -96,7 +95,7 @@ class PaymentProcess extends Component {
     applyError(this.nameRef, this.nameLabRef);
     applyError(this.telRef, this.telLabRef);
     applyError(this.emailRef, this.emailLabRef);
-    if (this.nameRef.value.match(/^[a-zA-Z\s\-]+$/)) {
+    if (this.nameRef.value.match(/^[a-zA-Z\s-]+$/)) {
       cleanError(this.nameRef, this.nameLabRef);
     }
     if (this.telRef.value.length === 10) {
@@ -149,10 +148,10 @@ class PaymentProcess extends Component {
     }
   }
   paymetApproved(resp) {
-    console.log("got it: ", resp);
+    
     authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.state.totalSum, this.state.orderDate)
     alert("we got it")
-    window.location.href = '/home'
+    window.location.href = '/dashboard'
   }
 
   deliveryAddress() {
