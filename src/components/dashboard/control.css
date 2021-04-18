@@ -2,3 +2,9 @@
 
     display: none;
 }
+div#a {
+    background-image: none !important;
+  }
+#newOrders:hover{
+    cursor: pointer;
+}

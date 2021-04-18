@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Login from "../Login/Login"
 import {Modal, Button} from "react-bootstrap"
 import authentication from "../../auth";
+import { connect } from "react-redux";
+import {withRouter} from 'react-router-dom'
 
 class OrderSummary extends Component {
   constructor(props) {
@@ -17,21 +19,25 @@ class OrderSummary extends Component {
   }
   handleShow(){
     if (authentication.isAuthenticated())
-      window.location.href = '/payment'
+      // window.location.href = '/payment'
+      // console.log(this.props);
+      this.props.history.push('/payment')
       else{
 
         this.setState({showMadal: true})
         
       }
   }
+  
   render() {
+    console.log("==>>>>>>>>>>>>", this.props.totalPrice)
     return (
       <div>
         <h3>Order Summary</h3>
         
         <div>
           <span>
-            <b>{`Total ${this.props.totalSum}₪`}</b>
+            <b>{`Total ${this.props.totalPrice}₪`}</b>
           </span>
         </div>
 
@@ -61,4 +67,7 @@ const MenuColor = {
   color: "rgb(226, 80, 31)",
   fontWeight: "bold",
 };
-export default OrderSummary;
+
+export default connect(state => ({
+  totalPrice: state.global.price
+})) (withRouter(OrderSummary));

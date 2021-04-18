@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card,  Form, Button,  Col } from "react-bootstrap";
-import { auth } from "../../firebase";
+import auth from "../../auth";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -12,55 +12,19 @@ export default class Profile extends Component {
     };
   }
   componentDidMount() {
-    this.setState({
-      // fname:
-      //   auth.currentUser.displayName.split(" ")[0] !== "undefined"
-      //     ? auth.currentUser.displayName.split(" ")[0]
-      //     : "",
-      // lname:
-      //   auth.currentUser.displayName.split(" ").slice(1)[0] !== "undefined"
-      //     ? auth.currentUser.displayName.split(" ").slice(1)[0]
-      //     : "",
-      //   city:auth.currentUser.city
-    });
+    auth.loadUserData()
 
   }
   onUpdateUserProfile() {
-    let user = auth.currentUser;
-    
-    user.updateProfile({
-        displayName: `${this.state.fname} ${this.state.lname}`,
-        city: this.state.city
-    });
+    auth.loadUserData()
+   
   }
   render() {
-    
-    return (
+    console.log("auth.user", auth.user);
+    return auth.user?(
       <div className="mt-4 d-flex flex-md-wrap justify-content-around">
-        <Card
-          className="d-flex align-items-center justify-content-center"
-          style={{ width: "48%" }}
-        >
-          <Card.Body>
-            <Form className="text-center">
-              <Form.Row>
-                <img
-                  src="https://randomuser.me/api/portraits/lego/6.jpg"
-                  className="rounded-circle"
-                  style={{ width: "100px" }}
-                />
-              </Form.Row>
-              {/* <Form.Label>{auth.currentUser.displayName!=='undefined undefined'?auth.currentUser.displayName:""}</Form.Label> */}
-              <Form.Label>{auth.currentUser.displayName}</Form.Label>
-              <Form.Label>{auth.currentUser.city}</Form.Label>
-            </Form>
-          </Card.Body>
-          <Card.Footer style={{ backgroundColor: "white" }}>
-            Upload Picture
-          </Card.Footer>
-        </Card>
-
-        <Card style={{ width: "48%" }}>
+        
+        <Card style={{ width: "350px" }}>
           <Card.Header as="h3" style={{ backgroundColor: "white" }}>
             Profile
           </Card.Header>
@@ -83,7 +47,7 @@ export default class Profile extends Component {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                defaultValue={auth.currentUser.email}
+                defaultValue={auth.user.email}
                 required
               />
               <Form.Label>City</Form.Label>
@@ -119,7 +83,8 @@ export default class Profile extends Component {
             </Button>
           </Card.Footer>
         </Card>
+      
       </div>
-    )
+    ):<p>loading...</p>
   }
 }

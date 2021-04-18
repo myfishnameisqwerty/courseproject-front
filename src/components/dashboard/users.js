@@ -1,6 +1,6 @@
 import * as React from "react";
 import auth from "../../auth";
-import { useMutation, useRedirect, required, ExportButton, CreateButton, RefreshButton, BooleanInput, EditButton, Filter, Edit, SimpleForm, ReferenceInput, SelectInput, TextInput, List, Datagrid, TextField, EmailField, DeleteButton, Create, PasswordInput} from 'react-admin';
+import { useMutation, useRedirect, required, ExportButton, CreateButton, RefreshButton, BooleanInput, EditButton, Filter, Edit, SimpleForm, ReferenceInput, SelectInput, TextInput, List, Datagrid, TextField, EmailField, DeleteButton, Create, PasswordInput, ReferenceArrayInput, SelectArrayInput, BooleanField} from 'react-admin';
 const UserActionsButtons = props => (
     <div>
         <RefreshButton {...props}/>
@@ -23,13 +23,15 @@ export const UserEdit = props => (
     <Edit {...props}  undoable={false}>
         <SimpleForm >
             <TextInput disabled source="email" />
-            <TextInput source="userName" />
+            <TextInput source="username" />
             <BooleanInput label="Enabled" source="active" />
-            <SelectInput source="role" choices={[
-                { id: 'admin', name: 'admin' },
-                { id: 'seller', name: 'seller' },
-                { id: 'client', name: 'client' },
-            ]} />
+            {/* <ReferenceInput label="role" source="role"  reference="userRoles" allowEmpty>
+                <SelectInput optionText="name"/>
+            </ReferenceInput> */}
+            <ReferenceArrayInput source="role.id" reference="userRoles">
+                <SelectArrayInput optionText="name" />
+            </ReferenceArrayInput>
+
         </SimpleForm>
     </Edit>
 );
@@ -45,16 +47,19 @@ export const UserCreate = props => {
     );
     return (
     <Create {...props}  undoable={false}>
-        <SimpleForm save={save}>
+        <SimpleForm>
             <TextInput validate={required()} source="userName" />
-            <EmailField validate={required()} source="email" />
+            <TextInput validate={required()} source="email" />
             <PasswordInput validate={required()} source="pass"/>
             <BooleanInput label="Enabled" source="active" />
-            <SelectInput validate={required()} source="role" choices={[
+            {/* <SelectInput validate={required()} source="role" choices={[
                 { id: 'admin', name: 'admin' },
                 { id: 'seller', name: 'seller' },
                 { id: 'client', name: 'client' },
-            ]} />
+            ]} /> */}
+            <ReferenceArrayInput source="role" reference="userRoles">
+                <SelectInput optionText="name"/>
+            </ReferenceArrayInput>
         </SimpleForm>
     </Create>
 )};
@@ -64,9 +69,10 @@ export const UserList = props => (
     <List filters={<UserFilter/>} actions={<UserActionsButtons/>} {...props}>
         <Datagrid rowClick="edit">
             
-            <TextField source="userName" />
-            <TextField source="role"/>
-            <TextField label="Enabled" source="active"/>
+            <TextField source="username" />
+            <TextField label="Role" source="role"/>
+            <BooleanField label="Enabled" source="active"/>
+            
             <EmailField source="email" />
             
             <EditButton />

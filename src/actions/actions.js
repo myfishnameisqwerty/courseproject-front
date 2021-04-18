@@ -46,3 +46,10 @@ export const updateUserNavbar = (name, role) => dispatch => {
         }
     })
 }
+
+export const updateTotalPrice = (price) => dispatch =>{
+    dispatch({
+        type:types.UPDATE_PRICE,
+        payload: price
+    })
+}

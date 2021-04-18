@@ -1,7 +1,10 @@
 import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
 import auth from "../../auth"
-export const ProtectedRoute = ({
+
+import { connect } from 'react-redux';
+
+const ProtectedRoute = ({
     component: Component,
     ...rest
   }) => {
@@ -9,7 +12,7 @@ export const ProtectedRoute = ({
       <Route
         {...rest}
         render={props => {
-          if (auth.isAuthenticated()) {
+          if (rest.userName) {
             return <Component {...props} />;
           } else {
             return (
@@ -26,4 +29,9 @@ export const ProtectedRoute = ({
         }}
       />
     );
-  };
+  }
+
+  export default connect(state => ({
+    userName: state.global.userName
+  }), ) (ProtectedRoute);
+

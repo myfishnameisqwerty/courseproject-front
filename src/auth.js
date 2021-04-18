@@ -1,29 +1,55 @@
 import firebase, { auth, db } from "./firebase";
+import axios from "axios"
+import { connect } from "react-redux";
+import { updateUserNavbar } from "./actions/actions";
 
 // import  { auth } from "./firebase"
 class Auth {
-  constructor() {
-    this.email = "guest";
+  constructor(){
+     this.user = null
   }
 
-  async login(email, pass) {
+  async login(email, password) {
     let result = [];
+    const request = {email, password}
+    await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/users/login`, request)
+    .then( async resp => {
+      if (resp.data.token){
+        localStorage.setItem("home-food-AT", resp.data.token)
 
-    await auth
-      .signInWithEmailAndPassword(email, pass)
-      .then(() => {
-        this.onSuccessLogin(result);
-      })
-      .catch((e) => this.onFailedLogin(result, e));
-    return result;
+        await this.onSuccessLogin(result)
+        
+      }
+      else  this.onFailedLogin(result, resp.data)
+    })
+    return result
   }
   onFailedLogin(result, e) {
+    
     result.push(false, e.message);
   }
 
-  onSuccessLogin(result) {
-    this.email = auth.currentUser.email;
-    result.push(true, `Hello ${auth.currentUser.email}`);
+  async onSuccessLogin(result) {
+    let promise = await new Promise( async (resolve, reject) => {
+      this.loadUserData().then(res => {
+        result.push(true, `Hello ${res.username}`)
+        resolve(result)
+      })
+    })
+    return promise
+
+  }
+  async loadUserData() {
+    let promise = new Promise( async (resolve, reject) => {
+      let authorization = `bearer ${localStorage.getItem("home-food-AT")}`
+      await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/users/token`, { headers: { authorization } })
+        .then(resp => {
+          this.user = resp.data
+        });
+      resolve(this.user)
+
+    })
+    return promise
   }
 
   //  googleLogin(){
@@ -35,32 +61,21 @@ class Auth {
   //       this.onSuccessLogin(result);
   //     }).catch(e => this.onFailedLogin(result, e))
   //   }
-  async signup(email, pass, userName, role = "client") {
+  async signup(email, password, username) {
     let result = [];
-    await auth
-      .createUserWithEmailAndPassword(email, pass)
-      .then((userCredential) => {
-        db.ref("users").child(userCredential.user.uid).set(
-          {
-            id: userCredential.user.uid,
-            userName: userName,
-            email: email,
-            active: true,
-            pass: pass,
-            role: role
-          }
-        )
-        result.push(
-          true,
-          `Successfully created account ${auth.currentUser.email}`
-        );
-      })
-      .catch((e) => result.push(false, e.message));
+    await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/users`, {email, password, username})
+    .then(resp =>{
+      if (resp.data.token){
+        localStorage.setItem("home-food-AT", resp.data.token)
+        this.onSuccessLogin(result);
+      }
+      else    result.push(false,  resp.data.message)
+    })
     return result;
+    
   }
   async logout() {
-    this.email = "guest";
-    await auth.signOut();
+    localStorage.removeItem('home-food-AT')
   }
 
   isAuthenticated() {
@@ -99,5 +114,9 @@ class Auth {
     
   }
 }
-
-export default new Auth();
+const mapStateToProps = state => ({
+  userName: state.global.userName,
+  userRole: state.global.userRole
+})
+// export default connect(mapStateToProps, {updateUserNavbar}) (Auth);
+export default new Auth()

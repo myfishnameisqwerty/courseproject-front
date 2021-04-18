@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Carousel from "../Carousel/Carousel";
 import "./pendingOrders.css";
+import { connect } from "react-redux";
+import {updateTotalPrice} from "../../actions/actions"
+
 class PendingOrders extends Component {
   constructor(props) {
     super(props);
@@ -11,22 +14,35 @@ class PendingOrders extends Component {
   }
   componentDidMount() {
     this.calcUnitPrice();
+    console.log("this.props.selectAll: ", this.props.selectAll);
+    this.setState({selected:this.props.selectAll})
+    
   }
+componentDidUpdate(prevProps){
+  if(prevProps.isChecked!=this.props.isChecked ){
+    this.updateTolats()
+    
+    this.props.updateSelectedOrders(this.props.index)}
+  // this.checkRef.checked=this.props.selectAll
+  // this.updateTolats(this.props.selectAll)
+  
+  // this.props.updateSelectedOrders(this.props.index)
 
-  updateTolats(state){
-    if (state){  
-      this.props.updateTotals(
-        this.state.unitPrice * this.props.orderInfo.quantity
-        
-      );
-    }
-    else{
+}
 
-      this.props.updateTotals(
-        this.state.unitPrice * this.props.orderInfo.quantity * -1
-        
-      );
+   updateTolats(){
+    let price = this.state.unitPrice * this.props.orderInfo.quantity
+    if(!this.props.isChecked){
+      price *=-1
     }
+    this.props.updateTotalPrice(price)
+    console.log("current price ===========>>>>>>>>>", this.props.totalPrice);
+     this.props.updateTotals(
+      price
+      ,this.props.index
+    );
+    
+   
   }
   render() {
     const orderInfo = this.props.orderInfo;
@@ -39,12 +55,18 @@ class PendingOrders extends Component {
             className="fullInfo check"
             name={orderInfo.orderId + ""}
             id={orderInfo.orderId + ""}
-            checked={this.state.selected}
-            onChange={(e) => {
-              this.setState({selected:e.target.checked})
-              this.updateTolats(e.target.checked)
-              this.props.updateSelectedOrders(this.props.index)
+            // checked={this.state.selected}
+            checked={this.props.isChecked}
+
+            ref={check=>this.checkRef=check}
+            onClick={(e) => {
+              this.props.setIsChecked(this.props.index,this.state.unitPrice * orderInfo.quantity)
+              
+              // this.setState({selected:e.target.checked})
+              // this.updateTolats(e.target.checked)
+              // this.props.updateSelectedOrders(this.props.index)
             }}
+            onChange={()=>console.log('lll')}
           />
           <Carousel key={Math.random()} pictures={fullItemInfo.pictures} />
           <div>
@@ -138,4 +160,8 @@ class PendingOrders extends Component {
   }
 }
 
-export default PendingOrders;
+
+export default connect(state => ({
+  totalPrice: state.global.price
+}), {updateTotalPrice}) (PendingOrders);
+

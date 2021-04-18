@@ -5,13 +5,14 @@ import { NavLink } from "react-router-dom";
 import "./payment.css";
 import { PayPalButton } from "react-paypal-button";
 import authentication from "../../auth"
+import { connect } from "react-redux";
+import {updateTotalPrice} from "../../actions/actions"
 
 class PaymentProcess extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedOrders: [],
-      totalSum: 0,
       deliveryPrice: 0,
       urgent: 0,
       orderDate: 0,
@@ -23,8 +24,8 @@ class PaymentProcess extends Component {
   }
   componentDidMount() {
     this.loadOrders();
-    this.loadTotal();
     this.setminDate();
+    
   }
   setminDate() {
     let orderDate = new Date();
@@ -38,14 +39,10 @@ class PaymentProcess extends Component {
       if (date < inMinRange) date = inMinRange;
       this.setState({
         orderDate: date,
-        urgent: this.state.totalSum * 0.3,
+        urgent: this.props.totalPrice * 0.3,
         verify: null,
       });
     } else this.setState({ orderDate: date, urgent: 0, verify: null });
-  }
-  loadTotal() {
-    const totalSum = Number(localStorage.getItem("homefood-selectedTotal"));
-    this.setState({ totalSum });
   }
   loadOrders() {
     const allOrders = JSON.parse(
@@ -65,7 +62,7 @@ class PaymentProcess extends Component {
     this.setState({ verify: null });
     event.target.value === "pickup"
       ? this.setState({ deliveryPrice: 0, delivery: false })
-      : this.state.totalSum < 650
+      : this.props.totalPrice < 650
       ? this.setState({ deliveryPrice: 100, delivery: true })
       : this.setState({ deliveryPrice: 0, delivery: true });
   }
@@ -140,7 +137,7 @@ class PaymentProcess extends Component {
           <PayPalButton
             paypalOptions={paypalOptions}
             buttonStyles={buttonStyles}
-            amount={state.totalSum + state.deliveryPrice + state.urgent}
+            amount={this.props.totalPrice + state.deliveryPrice + state.urgent}
             onPaymentSuccess={(resp)=> this.paymetApproved(resp)}
           />
         ),
@@ -148,10 +145,10 @@ class PaymentProcess extends Component {
     }
   }
   paymetApproved(resp) {
-    
-    authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.state.totalSum, this.state.orderDate)
+    this.nullifyTotal()
+    authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.props.totalPrice, this.state.orderDate)
     alert("we got it")
-    window.location.href = '/dashboard'
+    this.props.history.push('/dashboard')
   }
 
   deliveryAddress() {
@@ -290,17 +287,25 @@ class PaymentProcess extends Component {
   onClickVerifyCoupon() {
     //logic will be implimented after creating a db
   }
+  nullifyTotal(){
+    this.props.updateTotalPrice(-this.props.totalPrice)
+  }
   render() {
+    
     const selectedOrders = this.state.selectedOrders;
     return (
       <div className="payment">
         <div>
-          <NavLink to="/shopcart">
+          {/* <NavLink to="/shopcart"> */}
             <i
               className="far fa-undo-alt fa-3x m-3"
               style={{ color: "rgb(255, 136, 0)" }}
+              onClick={()=>{
+                this.nullifyTotal()
+                this.props.history.push('/shopcart')
+              }}
             />
-          </NavLink>
+          {/* </NavLink> */}
           <span>Back to shop cart</span>
         </div>
         <div className="d-flex justify-content-between">
@@ -318,7 +323,7 @@ class PaymentProcess extends Component {
             <h4>Total sum for payment</h4>
             <div style={{ fontSize: "20px" }}>
               <b>
-                {this.state.totalSum +
+                {this.props.totalPrice +
                   this.state.urgent +
                   this.state.deliveryPrice}
                 ₪
@@ -370,9 +375,9 @@ class PaymentProcess extends Component {
                 id="delivery"
                 value="delivery"
               />{" "}
-              Deliver me it - {this.state.totalSum >= 650 ? "free" : "100₪"}
+              Deliver me it - {this.props.totalPrice >= 650 ? "free" : "100₪"}
             </div>
-            {this.state.totalSum < 650 ? (
+            {this.props.totalPrice < 650 ? (
               <p>Deliry is free on buing up to 650 nis.</p>
             ) : null}
             {this.deliveryAddress()}
@@ -384,4 +389,6 @@ class PaymentProcess extends Component {
   }
 }
 
-export default PaymentProcess;
+export default connect(state => ({
+  totalPrice: state.global.price
+}), {updateTotalPrice}) (PaymentProcess);

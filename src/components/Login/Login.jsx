@@ -16,7 +16,8 @@ class Login extends Component {
   }
   handleCloseModal() {
     this.setState({ modalShow: false });
-    if (this.state.result[0]) this.props.history.push("/account/profile");
+    if (this.state.result[0])  window.location.href = "/account/profile"
+    // if (this.state.result[0]) this.props.history.push("/account/profile");
   }
   render() {
     return (
@@ -54,12 +55,13 @@ class Login extends Component {
                 <Button
                   onClick={async (e) => {
                     e.preventDefault();
+                    let result = await authentication.login(
+                      this.emailRef.value,
+                      this.passwordRef.value
+                    )
                     await this.setState({
                       modalShow: true,
-                      result: await authentication.login(
-                        this.emailRef.value,
-                        this.passwordRef.value
-                      ),
+                      result
                     });
                     // this.props.updateUserNavbar(auth.currentUser)
                   }}

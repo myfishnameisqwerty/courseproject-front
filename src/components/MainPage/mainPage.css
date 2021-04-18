@@ -1,6 +1,7 @@
 main{
     
-    background-image: url("/src/bg.png") ;
+    /* background-image: url("/src/bg.png") ; */
+    background-color: rgba(255, 255, 255, 0.85) !important;
     background-size: cover;
     background-repeat: no-repeat;
 }

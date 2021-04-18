@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./header.css";
 import PendingOrders from "../pendingOrders/pendingOrders";
-import { auth, db } from "../../firebase";
-import firebaseWrapper from "../../auth";
+
+import auth from "../../auth";
 import { updateUserNavbar } from "../../actions/actions";
 import { connect } from "react-redux";
 import { Dropdown } from "react-bootstrap";
@@ -20,24 +20,33 @@ class Header extends Component {
 
   componentDidMount() {
     this.loadOrdersInProcess();
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        let data;
+    // auth.onAuthStateChanged(async (user) => {
+    //   if (user) {
+    //     let data;
 
-        await db.ref().on("value", async (snapshot) => {
+    //     await db.ref().on("value", async (snapshot) => {
           
-          data = await snapshot.val().users;
+    //       data = await snapshot.val().users;
 
-          data = await data[user.uid];
+    //       data = await data[user.uid];
 
-          const name = (await data.userName) || data.email;
-          const role = await data.role;
+    //       const name = (await data.userName) || data.email;
+    //       const role = await data.role;
           
-          this.props.updateUserNavbar(name, role);
+    //       this.props.updateUserNavbar(name, role);
           
-        });
+    //     });
+    //   }
+    // });
+    auth.loadUserData().then(()=>{
+      if (auth.user){
+
+        const name = auth.user.username || auth.user.email;
+        const role = auth.user.role;
+  
+        this.props.updateUserNavbar(name, role)
       }
-    });
+    })
   }
   loadOrdersInProcess() {
     const orders = JSON.parse(localStorage.getItem("homefood-ordersInProcess"));
@@ -158,7 +167,7 @@ class Header extends Component {
               <button
                 className="text-danger btn btn-light my-2 my-sm-0 orangeColor"
                 onClick={() => {
-                  firebaseWrapper.logout();
+                  auth.logout();
                   window.location.reload();
                 }}
               >

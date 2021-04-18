@@ -1,5 +1,6 @@
 import * as React from "react";
 import { db } from "../../firebase";
+import axios from 'axios'
 import {
   DateInput,
   useMutation,
@@ -14,6 +15,7 @@ import {
   RefreshButton,
   BooleanInput,
   EditButton,
+  ReferenceArrayField,
   Filter,
   Edit,
   SimpleForm,
@@ -28,6 +30,9 @@ import {
   CheckboxGroupInput,
   NumberInput,
   ImageInput,
+  SingleFieldList,
+  ChipField,
+  ReferenceArrayInput,
 } from "react-admin";
 const ProductsActionsButtons = (props) => (
   <div>
@@ -68,7 +73,12 @@ export const ProductEdit = (props) => (
         label="maximum order of"
         source="max"
       />
-      <CheckboxGroupInput
+      <ReferenceArrayInput label="Tags" source="tags.id"  reference="tags">
+
+<CheckboxGroupInput source="name" />
+
+</ReferenceArrayInput>
+      {/* <CheckboxGroupInput
         validate={required()}
         source="tags"
         choices={[
@@ -80,7 +90,7 @@ export const ProductEdit = (props) => (
           { id: "salad", name: "Salad" },
           { id: "sweets", name: "Sweets" },
         ]}
-      />
+      /> */}
       <ArrayInput source="alegens">
         <SimpleFormIterator>
           <TextInput label="Alergen" />
@@ -100,27 +110,21 @@ export const ProductEdit = (props) => (
 export const ProductCreate = (props) => {
   const [mutate] = useMutation();
   const redirect = useRedirect();
-  const save = React.useCallback(
-    (value) => {
-      const today = new Date();
-      const createdAt = `${
-        today.getMonth() + 1
-      }/${today.getDate()}/${today.getFullYear()}`;
-      const id = Math.floor(Math.random() * Date.now());
+
+  const convertFileToBase64 = file =>
+  new Promise((resolve, reject) => {
+
+      const reader = new FileReader();
       
-      db.ref("products/" + id).set({
-        createdAt,
-        id,
-        stars: 0,
-        ...value,
-      });
-      redirect("/products");
-    },
-    [mutate]
-  );
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file.rawFile);
+});
+
   return (
     <Create {...props} undoable={false}>
-      <SimpleForm save={save}>
+      <SimpleForm>
         <TextInput validate={required()} source="name" resettable />
         <TextInput
           multiline
@@ -140,7 +144,7 @@ export const ProductCreate = (props) => {
           label="maximum order of"
           source="max"
         />
-        <CheckboxGroupInput
+        {/* <CheckboxGroupInput
           validate={required()}
           source="tags"
           choices={[
@@ -152,8 +156,13 @@ export const ProductCreate = (props) => {
             { id: "salad", name: "Salad" },
             { id: "sweets", name: "Sweets" },
           ]}
-        />
-        <SimpleForm>
+        /> */}
+        <ReferenceArrayInput label="Tags" source="tags"  reference="tags">
+
+                <CheckboxGroupInput source="name" />
+
+            </ReferenceArrayInput>
+        
         <ArrayInput source="alegens">
           <SimpleFormIterator>
             <TextInput label="Alergen" validate={required()} />
@@ -180,7 +189,7 @@ export const ProductCreate = (props) => {
           </SimpleFormIterator>
         </ArrayInput>
        
-        </SimpleForm>
+        
        
         <ImageInput
           validate={required()}

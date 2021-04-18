@@ -63,7 +63,7 @@ export const PostCreate = (props) => {
   );
   return (
     <Create {...props}>
-      <SimpleForm save={save}>
+      <SimpleForm >
         <TextInput validate={required()} source="header" resettable />
         <RichTextInput
           validate={required()}
