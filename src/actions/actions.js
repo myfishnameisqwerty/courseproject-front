@@ -1,13 +1,14 @@
 import axios from 'axios'
 import  *  as types from './types'
 export const fetchProducts = () => dispatch =>{
-    axios.get("http://localhost:3000/itemsArray").then(res => {
+    axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/products`).then(res => {
             dispatch({
                 type: types.FETCH_PRODUCTS,
                 payload: res.data
             })
             
         })
+        
 }
 export const filterProducts = (products, tags) => dispatch =>{
     dispatch({

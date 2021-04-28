@@ -26,7 +26,7 @@ class ProductFullInfo extends Component {
 
   componentDidMount(){
     const id = this.props.match.params.id
-    axios.get(`http://localhost:3000/itemsArray/${id}`).then((response) => {
+    axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/products/${id}`).then((response) => {
       this.product = response.data;
       this.setState({
         price: this.product.price,

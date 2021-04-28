@@ -46,7 +46,8 @@ const imgSlide = (img, i) => {
   if (i === 0) classes += " active";
   return (
     <div className={classes} key={Math.random()}>
-      <img key={Math.random()} className="d-block w-100" src={`/${img}`} />
+      {console.log(img)}
+      <img key={Math.random()} className="d-block w-100" src={`${process.env.REACT_APP_SERVER_ADDRESS}/products/image/${img}`} />
     </div>
   );
 };

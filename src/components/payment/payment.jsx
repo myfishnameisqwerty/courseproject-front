@@ -145,10 +145,10 @@ class PaymentProcess extends Component {
     }
   }
   paymetApproved(resp) {
-    this.nullifyTotal()
-    authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.props.totalPrice, this.state.orderDate)
+    authentication.addOrder(resp, this.state.fields, this.state.address, this.state.orderDate, this.props.totalPrice + this.state.deliveryPrice + this.state.urgent)
     alert("we got it")
     this.props.history.push('/dashboard')
+    this.nullifyTotal()
   }
 
   deliveryAddress() {

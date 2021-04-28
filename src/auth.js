@@ -79,7 +79,7 @@ class Auth {
   }
 
   isAuthenticated() {
-    if (auth.currentUser) return true;
+    if (this.user) return true;
     else return false;
   }
 
@@ -93,23 +93,21 @@ class Auth {
     localStorage.setItem("homefood-ordersInProcess", JSON.stringify(allOrders))
     
     payedOrders.forEach(el => {
-      const order = el[0].orderInfo;
+      let order = el[0].orderInfo;
       const {orderId, ...rest} = order;
-      console.log(orderId, rest);
-      db.ref("orders").child(orderId).set(
-        {
-          id: orderId,
-          orderInfo : rest,
-          user:this.isAuthenticated()?auth.currentUser.uid:"anonymous",
-          orderDate:JSON.stringify(orderDate),
-          customer,
-          address:address?address:"pick up",
-          totalSum,
-          paymentComfirmation: resp,
-          status: "Unconfirmed"
-        }
-  
-       )
+      order = {
+        id: orderId,
+        orderInfo : rest,
+        user:this.isAuthenticated()?this.user.id:"anonymous",
+        orderDate:JSON.stringify(orderDate),
+        customer,
+        address:address?address:"pick up",
+        totalSum,
+        paymentComfirmation: resp
+      }
+      console.log("order is", order);
+      axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/orders`, order)
+      
     });
     
   }
